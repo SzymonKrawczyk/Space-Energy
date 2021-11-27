@@ -1,0 +1,34 @@
+{
+  "name": "io.szymonkrawczyk.spaceenergy",
+  "displayName": "Space Energy",
+  "version": "1.0.0",
+  "description": "Survival game using accelerometer, vibration and Firebase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Szymon Krawczyk",
+  "license": "-",
+  "devDependencies": {
+    "cordova-android": "^9.1.0",
+    "cordova-browser": "^6.0.0",
+    "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-ionic-webview": "^5.0.0",
+    "cordova-plugin-vibration": "^3.1.1"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-device": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-vibration": {}
+    },
+    "platforms": [
+      "browser",
+      "android"
+    ]
+  },
+  "dependencies": {}
+}

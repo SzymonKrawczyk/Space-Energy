@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="io.szymonkrawczyk.spaceenergy" version="1.0.0" xmlns="http://cordova.apache.org/ns/1.0">
+    <name>Space Energy</name>
+    <description>Survival game using accelerometer, vibration and Firebase</description>
+    <author email="UL0237153@edu.uni.lodz.pl">Szymon Krawczyk</author>
+    <platform name="android"> </platform>
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="orientation" value="portrait" />
+    <preference name="fullscreen" value="true" />
+    <preference name="exit-on-suspend" value="true" />
+</widget>

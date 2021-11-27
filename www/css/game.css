@@ -1,0 +1,48 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: lightgray;
+    background-image: url("../img/spaceshooter/Backgrounds/black.png");
+    background-size: 45%;
+}
+
+#gameContainer {
+	
+	width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+#gameCanvas {
+	
+    outline:1px solid black;
+    width: 300px;
+    height: 700px;
+	
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#loadingMessage {
+	
+    /* the loading message styling usually does not change */
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 100;
+    font-size: 50px;
+}
+
+p {
+    margin: 0;
+}
+
+#info {    
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    color: magenta;
+}
