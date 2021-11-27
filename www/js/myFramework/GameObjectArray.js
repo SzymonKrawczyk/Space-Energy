@@ -52,6 +52,8 @@ class GameObjectArray extends GameObject{
 
     render() {
         for(let i = 0; i < this.arr.length; ++i) {
+
+            if(this.arr[i] == null || typeof(this.arr[i]) == 'undefined') continue;
             this.arr[i].render();
         }
     }

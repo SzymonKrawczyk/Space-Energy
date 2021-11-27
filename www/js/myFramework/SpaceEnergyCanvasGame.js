@@ -28,10 +28,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
     gameWait() {
 
-        // TODO reset game objects
-
         _GLOBAL.gameState = "Waiting";
-        console.log(_GLOBAL);
+        //console.log(_GLOBAL);
     }
 
     gameStart() {
@@ -41,13 +39,16 @@ class SpaceEnergyCanvasGame extends CanvasGame {
             _GLOBAL.gameState = "Playing";
             _GLOBAL.score = 0;
 
+            
+            // TODO reset game objects
             _scoreManager.reset();
+
 
             //test
             //setTimeout(() => {this.gameEnd()}, 4000);
         }
 
-        console.log(_GLOBAL);
+        //console.log(_GLOBAL);
     }
 
     gameEnd() {
@@ -77,6 +78,31 @@ class SpaceEnergyCanvasGame extends CanvasGame {
     
     collisionDetection() {
 
-        //console.log(GLOBAL);
+        if(_GLOBAL.gameState == "Playing") {
+
+            // asteroids & player
+            for (let i = 0; i < _asteroidArray.arr.length; ++i) {
+
+                let currentAsteroid = _asteroidArray.getObjectAt(i);
+
+                if(currentAsteroid == null || typeof(currentAsteroid) == 'undefined') {
+                    _asteroidArray.remove(currentAsteroid);
+                    --i;
+                    continue;
+                }
+
+                const distanceToPlayer = _player.transform.distanceToTransform(currentAsteroid.transform);
+                const minimumDistanceToPlayer = _player.transform.width / 2.0 + currentAsteroid.transform.width / 2.0;
+
+                if (distanceToPlayer <= minimumDistanceToPlayer) {
+                    
+                    _player.takeDamage();
+                    currentAsteroid.takeDamage();
+                    _asteroidArray.remove(currentAsteroid);
+
+                    continue;
+                }
+            }
+        }
     }
 }
