@@ -27,6 +27,10 @@ image_asteroids_array[2].src = "img/spaceshooter/PNG/Meteors/meteorBrown_med1.pn
 image_asteroids_array[3] = new Image();
 image_asteroids_array[3].src = "img/spaceshooter/PNG/Meteors/meteorBrown_med3.png";
 
+
+let image_energy = new Image();
+image_energy.src = "img/myAssets/energy.png";
+
 let _GLOBAL = {
 
       gameState: "Loading"
@@ -49,8 +53,8 @@ function playGame() {
     // moving background
     // gameObjects - objects that never reset (background)
     gameObjects.push(new MovingBackground(image_bg, 256, 256,   0,      -15, -5, 32));
-    gameObjects.push(new MovingBackground(image_bg, 256, 256, 256 - 16, -15, -5, 32));
-    gameObjects.push(new MovingBackground(image_bg, 256, 256, 512 - 16, -15, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256, 256 - 2, -15, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256, 512 - 4, -15, -5, 32));
 
     _asteroidArray = new GameObjectArray();
     
@@ -59,6 +63,10 @@ function playGame() {
         _asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, 120, 90, 1.0, 32));
 
     _energyArray = new GameObjectArray();
+
+        //test
+        _energyArray.add(new Energy(image_energy, canvas.width / 2, canvas.height - 50, 40, 2.0, 32));
+
     _uiArray = new GameObjectArray();
     
     _enemy = new GameObject();

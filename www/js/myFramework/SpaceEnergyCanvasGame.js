@@ -6,6 +6,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
         super();
 
+        this.gameEndWaitTime = 4;
+
         // Screenshake
         this.screenShakeInterval = null;
         this.ScreenRotationDirectionToggle = false;
@@ -30,7 +32,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
     }
 
     // Game loop:
-    //  Loading -> Waiting -> Playing -> Game End, Waiting -> Playing ...
+    //  Loading -> Waiting -> Playing -> Game End Wait, Game End, Waiting -> Playing ...
 
     gameWait() {
 
@@ -56,12 +58,23 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
     gameEnd() {
 
-        if (_GLOBAL.gameState == "Playing") {
+        if (_GLOBAL.gameState == "GameEndWait") {
 
             // TODO do some stuff with score, upload
             alert(_GLOBAL.score);
 
+            _player.reset();
+
             this.gameWait();            
+        }
+    }
+
+    gameEndWait() {
+
+        if (_GLOBAL.gameState == "Playing") {
+
+            _GLOBAL.gameState = "GameEndWait";    
+            setTimeout(() => {this.gameEnd()}, 1000 * this.gameEndWaitTime);
         }
     }
 
@@ -116,6 +129,13 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
         if(_GLOBAL.gameState == "Playing") {
 
+            // gameOverCheck
+            if(_player.energy <= 0) {
+
+                this.gameEndWait();
+                return;
+            }
+
             // asteroids & player
             for (let i = 0; i < _asteroidArray.arr.length; ++i) {
 
@@ -145,6 +165,33 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     continue;
                 }
             }
+
+            // energy & player
+            for (let i = 0; i < _energyArray.arr.length; ++i) {
+
+                let currentEnergy = _energyArray.getObjectAt(i);
+
+                if(currentEnergy == null || typeof(currentEnergy) == 'undefined') {
+                    _asteroidArray.remove(currentEnergy);
+                    --i;
+                    continue;
+                }
+
+                const distanceToPlayer = _player.transform.distanceToTransform(currentEnergy.transform);
+                const minimumDistanceToPlayer = _player.transform.width / 2.0 + currentEnergy.transform.width / 2.0;
+
+                // hit
+                if (distanceToPlayer <= minimumDistanceToPlayer) {
+                    
+                    _player.collectEnergy(currentEnergy.value);
+                    currentEnergy.collect();
+                    _energyArray.remove(currentEnergy);
+
+                    continue;
+                }
+            }
+
+
         }
     }
 }

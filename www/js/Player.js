@@ -2,7 +2,7 @@
 
 class Player extends GameObject2 {
 
-	constructor (image_Ship, image_Shield){
+	constructor (image_Ship, image_Shield, energyVisualizer = null){
 		
 		// Init
 		super(64);
@@ -35,6 +35,19 @@ class Player extends GameObject2 {
 		this.shieldBlinkingStart = 3.0;
 		this.shieldBlinkingInterval = 0.15;
 		this.currentBlinkingTimer = 0.0;
+
+		// Energy
+		this.energyMax = 100.0;
+		this.energy = this.energyMax;
+		this.energyUsagePerSecond = 5.0;
+		this.energyUsagePerShield = 10.0;
+	}
+
+	reset() {		
+		
+		this.energy = this.energyMax;
+		this.isShieldActive = false;
+		this.isShieldVisible = false;
 	}
 
 	takeDamage() {
@@ -45,15 +58,39 @@ class Player extends GameObject2 {
 
 		} else {
 
+			if(this.energy <= 0) {
+				
+				console.log("No energy!");
+				return;
+			}
+
 			console.log("Damage!");
+
+			this.energy -= this.energyUsagePerShield;
 
 			this.isShieldActive = true;
 			this.isShieldVisible = true;
 			this.currentShieldTimer = 0.0;
 		}
     }
+
+	collectEnergy(value) {
+
+		if (this.energy <= 0) {
+			return;
+		}
+
+		this.energy += value;
+
+		if(this.energy >= this.energyMax) {
+
+			this.energy = this.energyMax;
+		}
+	}
 	
 	setOrientation(x, y) {
+
+		if(this.energy <= 0) return;
 
 		this.vx = x / 10.0;
 		this.vy = y / 10.0;
@@ -109,6 +146,21 @@ class Player extends GameObject2 {
 				this.currentBlinkingTimer = 0.0;
 
 				console.log("shield off!");
+			}
+		}
+
+		//energy
+		//energyVisualizer.setEnergy(this.energy);
+		if(_GLOBAL.gameState == "Playing"){			
+
+			if(this.energy > 0) {
+
+				this.energy -= this.energyUsagePerSecond * this.deltaTime;
+
+				if(this.energy <= 0) {
+
+					this.energy = 0;
+				}
 			}
 		}
     }
