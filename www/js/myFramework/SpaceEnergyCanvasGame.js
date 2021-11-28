@@ -37,11 +37,15 @@ class SpaceEnergyCanvasGame extends CanvasGame {
     gameWait() {
 
         _GLOBAL.gameState = "Waiting";
+
+        _playButton.show = true;
     }
 
     gameStart() {
 
         if (_GLOBAL.gameState == "Waiting") {
+
+            _playButton.show = false;
 
             _GLOBAL.gameState = "Playing";
             _GLOBAL.score = 0;

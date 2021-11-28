@@ -23,6 +23,8 @@ let image_energy_visual_fg = new Image();
 image_energy_visual_fg.src = "img/myAssets/energystatFG.png";
 let image_energy_visual_bg = new Image();
 image_energy_visual_bg.src = "img/myAssets/energystatBG.png";
+let image_playButton = new Image();
+image_playButton.src = "img/myAssets/play.png";
 
 let image_asteroids_array = [];
 image_asteroids_array[0] = new Image();
@@ -52,6 +54,7 @@ _player = null;
 
 _scoreManager = null;
 _uiArray = null;
+_playButton = null;
 
 /******************* END OF Declare game specific data and functions *****************/
 
@@ -101,6 +104,8 @@ function playGame() {
         , 32);
 	_uiArray.add(energyVisualizer);
 
+    _playButton = new StaticImage(image_playButton, canvas.width / 2, ((canvas.height - canvas.heightStart) / 2.0) + canvas.heightStart, canvas.width - 150, canvas.width - 150);
+	_uiArray.add(_playButton);
 
     /* Always create a game that uses the gameObject array */
     let game = new SpaceEnergyCanvasGame();
