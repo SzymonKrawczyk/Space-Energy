@@ -13,17 +13,21 @@ class Asetroid extends GameObject2 {
         this.transform.y = y;
         
         this.speed = speed;
+
+        this.hitboxMultiplayer = 0.8;
         
+        this.rotationDirection = Math.getRandomIntInclusive(0, 1) == 0;
 		this.rotationRate = 90;
     }
 
     takeDamage() {
+
         this.stopAndHide();
     }
 
     updateState() {
 		
-		this.transform.addRotation(this.rotationRate * this.deltaTime * this.speed);	
+		this.transform.addRotation(this.rotationRate * this.deltaTime * this.speed * (this.rotationDirection ? 1 : -1));	
     }
 
     render() {

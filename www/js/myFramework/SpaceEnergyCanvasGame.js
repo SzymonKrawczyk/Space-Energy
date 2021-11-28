@@ -5,6 +5,12 @@ class SpaceEnergyCanvasGame extends CanvasGame {
     constructor() {
 
         super();
+
+        // Screenshake
+        this.screenShakeInterval = null;
+        this.ScreenRotationDirectionToggle = false;
+        this.SCREEN_SHAKES_PER_SECOND = 100;
+        this.screenShakesLeft = 0;
     }
 
     start() {
@@ -29,7 +35,6 @@ class SpaceEnergyCanvasGame extends CanvasGame {
     gameWait() {
 
         _GLOBAL.gameState = "Waiting";
-        //console.log(_GLOBAL);
     }
 
     gameStart() {
@@ -47,8 +52,6 @@ class SpaceEnergyCanvasGame extends CanvasGame {
             //test
             //setTimeout(() => {this.gameEnd()}, 4000);
         }
-
-        //console.log(_GLOBAL);
     }
 
     gameEnd() {
@@ -64,6 +67,14 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
     render() {
 
+        ctx.save();
+        if (this.screenShakeInterval !== null) {
+            
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(Math.radians(1 * (this.ScreenRotationDirectionToggle ? -1 : 1)));
+            ctx.translate(-canvas.width / 2, -canvas.height / 2);
+        }
+
         super.render(); // original gameObjects (background)
 
         _asteroidArray.render();
@@ -74,6 +85,31 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
         _scoreManager.render();
         _uiArray.render();
+
+        
+        ctx.restore();
+    }
+
+    shaker() {
+
+        this.ScreenRotationDirectionToggle = !this.ScreenRotationDirectionToggle;
+        --this.screenShakesLeft;
+        if (this.screenShakesLeft <= 0) {
+
+            this.screenShakesLeft = 0;
+            clearInterval(this.screenShakeInterval);
+            this.screenShakeInterval = null;
+        }
+    }
+
+    shakeScreen(duration) {
+
+        this.screenShakesLeft += Math.floor(duration * this.SCREEN_SHAKES_PER_SECOND);
+
+        if (this.screenShakeInterval === null) {
+
+            this.screenShakeInterval = setInterval(this.shaker.bind(this), Math.floor(1000 / this.SCREEN_SHAKES_PER_SECOND));
+        }
     }
     
     collisionDetection() {
@@ -92,13 +128,19 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 }
 
                 const distanceToPlayer = _player.transform.distanceToTransform(currentAsteroid.transform);
-                const minimumDistanceToPlayer = _player.transform.width / 2.0 + currentAsteroid.transform.width / 2.0;
+                const minimumDistanceToPlayer = _player.transform.width / 2.0 + currentAsteroid.transform.width * currentAsteroid.hitboxMultiplayer / 2.0;
 
+                // hit
                 if (distanceToPlayer <= minimumDistanceToPlayer) {
                     
                     _player.takeDamage();
                     currentAsteroid.takeDamage();
                     _asteroidArray.remove(currentAsteroid);
+
+                    // screenShake
+                    this.shakeScreen(0.1);
+                    // vibration
+                    navigator.vibrate(100);
 
                     continue;
                 }

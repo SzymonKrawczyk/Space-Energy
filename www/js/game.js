@@ -48,9 +48,9 @@ function playGame() {
 
     // moving background
     // gameObjects - objects that never reset (background)
-    gameObjects.push(new MovingBackground(image_bg, 256, 256,   0, -15, -5, 32));
-    gameObjects.push(new MovingBackground(image_bg, 256, 256, 256, -15, -5, 32));
-    gameObjects.push(new MovingBackground(image_bg, 256, 256, 512, -15, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256,   0,      -15, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256, 256 - 16, -15, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256, 512 - 16, -15, -5, 32));
 
     _asteroidArray = new GameObjectArray();
     

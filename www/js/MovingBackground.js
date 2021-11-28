@@ -14,7 +14,7 @@ class MovingBackground extends GameObject2 {
         
         this.speed = Math.getRandomIntInclusive(speedLow, speedHigh);
         
-        this.timesWidth = Math.ceil(canvas.width / this.transform.width) + 1;
+        this.timesWidth = Math.ceil(canvas.width / (this.transform.width - 16)) + 1;
     }
 
     updateState() {
@@ -31,7 +31,7 @@ class MovingBackground extends GameObject2 {
 		
         for(let i = 0; i < this.timesWidth; ++i) {
 
-            ctx.drawImage(this.image, this.transform.x + this.transform.width * i, this.transform.y, this.transform.width, this.transform.height);
+            ctx.drawImage(this.image, this.transform.x + (this.transform.width - 16 * i) * i, this.transform.y, this.transform.width, this.transform.height);
         }
     }
 }

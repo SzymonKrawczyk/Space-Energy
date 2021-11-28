@@ -4,10 +4,13 @@ class Player extends GameObject2 {
 
 	constructor (image_Ship, image_Shield){
 		
+		// Init
 		super(64);
 		
+		// Image
 		this.image_Ship = image_Ship;
 
+		// Position, Movement
 		this.transform.x = canvas.width / 2.0;
 		this.transform.y = canvas.height / 2.0;
 
@@ -20,18 +23,18 @@ class Player extends GameObject2 {
 		this.vy = 0.0;
 
 
-		
+		// Shield
 		this.image_Shield = image_Shield;
-
-
+		this.shieldSizeMultiplayer = 1.4;
 		this.isShieldActive = false;
 		this.isShieldVisible = false;
-		this.shieldSizeMultiplayer = 1.4;
-		this.currentShieldTimer = 0.0;
+
 		this.shieldTime = 5.0;
+		this.currentShieldTimer = 0.0;
+
 		this.shieldBlinkingStart = 3.0;
-		this.currentBlinkingTimer = 0.0;
 		this.shieldBlinkingInterval = 0.15;
+		this.currentBlinkingTimer = 0.0;
 	}
 
 	takeDamage() {
