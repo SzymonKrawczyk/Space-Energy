@@ -15,7 +15,14 @@ let image_shield = new Image();
 image_shield.src = "img/myAssets/shield2.png";
 
 let image_bg = new Image();
-image_bg.src = "img/spaceshooter/Backgrounds/darkPurple.png";
+image_bg.src = "img/spaceshooter/Backgrounds/black.png";
+
+let image_stats_bg = new Image();
+image_stats_bg.src = "img/spaceshooter/Backgrounds/darkPurple.png";
+let image_energy_visual_fg = new Image();
+image_energy_visual_fg.src = "img/myAssets/energystatFG.png";
+let image_energy_visual_bg = new Image();
+image_energy_visual_bg.src = "img/myAssets/energystatBG.png";
 
 let image_asteroids_array = [];
 image_asteroids_array[0] = new Image();
@@ -50,6 +57,8 @@ _uiArray = null;
 
 function playGame() {
 
+    canvas.heightStart = 100;
+
     // moving background
     // gameObjects - objects that never reset (background)
     gameObjects.push(new MovingBackground(image_bg, 256, 256,   0,      -15, -5, 32));
@@ -59,29 +68,39 @@ function playGame() {
     _asteroidArray = new GameObjectArray();
     
         //test
-        _asteroidArray.add(new Asetroid(image_asteroids_array[3], canvas.width / 2, 50, 50, 2.0, 32));
-        _asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, 120, 90, 1.0, 32));
+        _asteroidArray.add(new Asetroid(image_asteroids_array[3], canvas.width / 2, canvas.heightStart + 50, 50, 2.0, 32));
+        _asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, canvas.heightStart + 120, 90, 1.0, 32));
 
     _energyArray = new GameObjectArray();
 
         //test
         _energyArray.add(new Energy(image_energy, canvas.width / 2, canvas.height - 50, 40, 2.0, 32));
 
-    _uiArray = new GameObjectArray();
-    
     _enemy = new GameObject();
     _player = new Player(image_spaceShipPlayer, image_shield);
 
 
 
 
+    _uiArray = new GameObjectArray();
 
-	let scoreVisualizer = new InteractableText(_GLOBAL.score, 200, 50, "Calibri", 30, "darkorange");
+    let statsBackground = new MovingStatsBackground(image_stats_bg, -15, -5, 32);
+    _uiArray.add(statsBackground);
+    const STATS_PADDING = 15;
+
+	let scoreText = new InteractableText("SCORE", false, true, STATS_PADDING, STATS_PADDING, "monospace", 30, "white");
+    _uiArray.add(scoreText);
+	let scoreVisualizer = new InteractableText(_GLOBAL.score, true, true, canvas.width - STATS_PADDING, STATS_PADDING, "monospace", 30, "white");
 	_uiArray.add(scoreVisualizer);
-    _scoreManager = new ScoreManager(scoreVisualizer);
+    _scoreManager = new ScoreManager(scoreVisualizer, 6);
 
+    let energyVisualizer = new EnergyVisualizer(
+        _player
+        , image_energy_visual_bg, image_energy_visual_fg
+        , canvas.heightStart - (STATS_PADDING + 30 / 2), STATS_PADDING, 30
+        , 32);
+	_uiArray.add(energyVisualizer);
 
-    console.log(_GLOBAL);
 
     /* Always create a game that uses the gameObject array */
     let game = new SpaceEnergyCanvasGame();
@@ -100,6 +119,7 @@ function playGame() {
     document.getElementById('gameCanvas').addEventListener("touchstart", (event)=>{
 
         if (_GLOBAL.gameState == "Waiting") {
+
             game.gameStart();
         }
     });

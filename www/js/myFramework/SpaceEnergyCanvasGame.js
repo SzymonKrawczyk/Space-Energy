@@ -96,7 +96,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         _enemy.render();
         _player.render();
 
-        _scoreManager.render();
+        //_scoreManager.render();
         _uiArray.render();
 
         

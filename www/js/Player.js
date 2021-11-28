@@ -2,7 +2,7 @@
 
 class Player extends GameObject2 {
 
-	constructor (image_Ship, image_Shield, energyVisualizer = null){
+	constructor (image_Ship, image_Shield/*, energyVisualizer*/){
 		
 		// Init
 		super(64);
@@ -12,7 +12,7 @@ class Player extends GameObject2 {
 
 		// Position, Movement
 		this.transform.x = canvas.width / 2.0;
-		this.transform.y = canvas.height / 2.0;
+		this.transform.y = ((canvas.height - canvas.heightStart) / 2.0) + canvas.heightStart;
 
 		this.transform.width = 64;
 		this.transform.height = 64;
@@ -41,6 +41,8 @@ class Player extends GameObject2 {
 		this.energy = this.energyMax;
 		this.energyUsagePerSecond = 5.0;
 		this.energyUsagePerShield = 10.0;
+
+		//this.energyVisualizer = energyVisualizer;
 	}
 
 	reset() {		
@@ -92,8 +94,8 @@ class Player extends GameObject2 {
 
 		if(this.energy <= 0) return;
 
-		this.vx = x / 10.0;
-		this.vy = y / 10.0;
+		this.vx = x / 5.0;
+		this.vy = y / 5.0;
 	}
 	
 	updateState() {
@@ -116,9 +118,9 @@ class Player extends GameObject2 {
 			
             this.transform.y = canvas.height - this.transform.width / 2;
 			
-        } else if (this.transform.y < 0 + this.transform.width / 2) {
+        } else if (this.transform.y < canvas.heightStart + this.transform.width / 2) {
 			
-			this.transform.y = this.transform.width / 2;
+			this.transform.y = canvas.heightStart + this.transform.width / 2;
 		}
 
 		//shield
@@ -150,7 +152,7 @@ class Player extends GameObject2 {
 		}
 
 		//energy
-		//energyVisualizer.setEnergy(this.energy);
+		//energyVisualizer.setEnergy(this.energy / this.energyMax);
 		if(_GLOBAL.gameState == "Playing"){			
 
 			if(this.energy > 0) {
