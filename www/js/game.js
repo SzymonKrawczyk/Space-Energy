@@ -91,9 +91,9 @@ function playGame() {
     _uiArray.add(statsBackground);
     const STATS_PADDING = 15;
 
-	let scoreText = new InteractableText("SCORE", false, true, STATS_PADDING, STATS_PADDING, "monospace", 30, "white");
+	let scoreText = new InteractableText("SCORE", false, true, STATS_PADDING, STATS_PADDING, "monospace, sans-serif, serif", 30, "white");
     _uiArray.add(scoreText);
-	let scoreVisualizer = new InteractableText(_GLOBAL.score, true, true, canvas.width - STATS_PADDING, STATS_PADDING, "monospace", 30, "white");
+	let scoreVisualizer = new InteractableText(_GLOBAL.score, true, true, canvas.width - STATS_PADDING, STATS_PADDING, "monospace, sans-serif, serif", 30, "white");
 	_uiArray.add(scoreVisualizer);
     _scoreManager = new ScoreManager(scoreVisualizer, 6);
 
