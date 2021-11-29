@@ -2,7 +2,7 @@
 
 class Player extends GameObject2 {
 
-	constructor (image_Ship, image_Shield/*, energyVisualizer*/){
+	constructor (image_Ship, image_Shield){
 		
 		// Init
 		super(64);
@@ -42,8 +42,6 @@ class Player extends GameObject2 {
 		this.energy = this.energyMax;
 		this.energyUsagePerSecond = 5.0;
 		this.energyUsagePerShield = 20.0;
-
-		//this.energyVisualizer = energyVisualizer;
 	}
 
 	reset() {		
@@ -163,7 +161,6 @@ class Player extends GameObject2 {
 		}
 
 		//energy
-		//energyVisualizer.setEnergy(this.energy / this.energyMax);
 		if(_GLOBAL.gameState == "Playing"){			
 
 			if(this.energy > 0) {

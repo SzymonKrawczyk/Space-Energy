@@ -135,4 +135,45 @@ function playGame() {
             game.gameStart();
         }
     });
+
+    // Debug keys movement
+    document.addEventListener("keydown", function (e)
+    {
+        if (e.keyCode === 37)  // left
+        {
+            _player.setOrientation(-45, 0);
+        }
+        else if (e.keyCode === 38) // up
+        {
+            _player.setOrientation(0, -45);
+        }
+        else if (e.keyCode === 39) // right
+        {
+            _player.setOrientation(45, 0);
+        }
+        else if (e.keyCode === 40) // down
+        {
+            _player.setOrientation(0, 45);
+        } 
+    });
+
+    // document.addEventListener("keyup", function (e)
+    // {
+    //     if (e.keyCode === 37)  // left
+    //     {
+    //         _player.setOrientation(0, 0);
+    //     }
+    //     else if (e.keyCode === 38) // up
+    //     {
+    //         _player.setOrientation(0, 0);
+    //     }
+    //     else if (e.keyCode === 39) // right
+    //     {
+    //         _player.setOrientation(0, 0);
+    //     }
+    //     else if (e.keyCode === 40) // down
+    //     {
+    //         _player.setOrientation(0, 0);
+    //     } 
+    // });
 }
