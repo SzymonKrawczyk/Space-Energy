@@ -27,6 +27,8 @@ class Energy extends GameObject2 {
 		this.rotationRate = rotationRate;
 
         this.value = 15.0;
+
+        this.movementHorizontal = movementHorizontal;
     }
 
     calculateTargetVector() {
