@@ -10,7 +10,8 @@ class Energy extends GameObject2 {
         this.transform.width = size;
         this.transform.height = size;
         this.transform.x = x;
-        this.transform.y = y;
+        this.transform.y = y;        
+        this.hitboxMultiplayer = 0.9;
         
         this.vx = 0;
         this.vy = 0;
@@ -74,7 +75,7 @@ class Energy extends GameObject2 {
 		this.transform.startRotation();
 
             ctx.drawImage(
-                this.image
+                  this.image
                 , this.transform.x - this.transform.width / 2
                 , this.transform.y - this.transform.width / 2
                 , this.transform.width

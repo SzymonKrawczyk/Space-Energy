@@ -40,6 +40,9 @@ image_asteroids_array[2].src = "img/spaceshooter/PNG/Meteors/meteorBrown_med1.pn
 image_asteroids_array[3] = new Image();
 image_asteroids_array[3].src = "img/spaceshooter/PNG/Meteors/meteorBrown_med3.png";
 
+let image_asteroidWarning = new Image();
+image_asteroidWarning.src = "img/myAssets/warning.png";
+
 
 let image_energy = new Image();
 //image_energy.src = "img/myAssets/energy.png";
@@ -52,6 +55,7 @@ let _GLOBAL = {
 }
 
 _asteroidArray = null;
+_asteroidManager = null;
 _energyArray = null;
 _energyManager = null;
 
@@ -76,10 +80,11 @@ function playGame() {
 
 
     _asteroidArray = new GameObjectArray();
+    _asteroidManager = new AsteroidManager(image_asteroids_array, image_asteroidWarning);
     
         //test
-        _asteroidArray.add(new Asetroid(image_asteroids_array[3], canvas.width / 2, canvas.heightStart + 50, 50, 2.0));
-        _asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, canvas.heightStart + 120, 90, 1.0));
+        //_asteroidArray.add(new Asetroid(image_asteroids_array[3], canvas.width / 2, canvas.heightStart + 50, 50, 2.0));
+        //_asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, canvas.heightStart + 120, 90, 1.0));
 
     _energyArray = new GameObjectArray();
     _energyManager = new EnergyManager(image_energy);

@@ -62,25 +62,25 @@ class EnergyManager extends GameObject2 {
                 const LR = Math.random() <= this.probabilityLR;
                 const sideLow = Math.random() >= 0.5;
 
-                console.log(LR);
-                console.log(sideLow);
+                //console.log(LR);
+                //console.log(sideLow);
                 if(LR) {
 
                     if(sideLow) {   // spawn left, go right
 
                         tempX = -1 * this.canvasSpawnOffset;
-                        tempY = canvas.heightStart + Math.random() * (this.spawnHeightLength);
+                        tempY = canvas.heightStart + Math.random() * this.spawnHeightLength;
 
                         tempTargetX = canvas.width + this.canvasSpawnOffset;
-                        tempTargetY = canvas.heightStart + Math.random() * (this.spawnHeightLength);
+                        tempTargetY = canvas.heightStart + Math.random() * this.spawnHeightLength;
 
                     } else {        // spawn right, go left
 
                         tempX = canvas.width + this.canvasSpawnOffset;
-                        tempY = canvas.heightStart + Math.random() * (this.spawnHeightLength);
+                        tempY = canvas.heightStart + Math.random() * this.spawnHeightLength;
 
                         tempTargetX = -1 * this.canvasSpawnOffset;
-                        tempTargetY = canvas.heightStart + Math.random() * (this.spawnHeightLength);
+                        tempTargetY = canvas.heightStart + Math.random() * this.spawnHeightLength;
                     }
 
                 } else {
@@ -110,7 +110,7 @@ class EnergyManager extends GameObject2 {
 
                 let newEnergy = new Energy(this.image, tempX, tempY, tempTargetX, tempTargetY, tempSize, tempSpeed, tempRotation, LR);
 
-                console.log(newEnergy);
+                //console.log(newEnergy);
                 newEnergy.start();
                 _energyArray.add(newEnergy);
                 //console.log(_energyArray);

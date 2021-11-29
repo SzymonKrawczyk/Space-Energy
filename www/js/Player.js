@@ -14,8 +14,8 @@ class Player extends GameObject2 {
 		this.transform.x = canvas.width / 2.0;
 		this.transform.y = ((canvas.height - canvas.heightStart) / 2.0) + canvas.heightStart;
 
-		this.transform.width = 64;
-		this.transform.height = 64;
+		this.transform.width = 48;
+		this.transform.height = 48;
 
 		this.rotationRate = 90;
 		
