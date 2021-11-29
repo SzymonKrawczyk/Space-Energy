@@ -50,10 +50,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
             _GLOBAL.gameState = "Playing";
             _GLOBAL.score = 0;
 
-            
-            // TODO reset game objects
             _scoreManager.reset();
-
+            _enemy.startAI();
 
             //test
             //setTimeout(() => {this.gameEnd()}, 4000);
@@ -68,6 +66,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
             alert(_GLOBAL.score);
 
             _player.reset();
+            _enemy.reset();
 
             this.gameWait();            
         }
@@ -140,6 +139,26 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 return;
             }
 
+            // enemy & player
+            {
+                const distanceToPlayer = _player.transform.distanceToTransform(_enemy.transform);
+                const minimumDistanceToPlayer = _player.transform.width / 2.0 + _enemy.transform.width * _enemy.hitboxMultiplayer / 2.0;
+
+                // hit
+                if (distanceToPlayer <= minimumDistanceToPlayer) {
+                        
+                    if (!_player.isShieldActive){
+
+                        _player.takeDamage();
+                        
+                        // screenShake
+                        this.shakeScreen(0.1);
+                        // vibration
+                        navigator.vibrate(100);
+                    }
+                }
+            }
+
             // asteroids & player
             for (let i = 0; i < _asteroidArray.arr.length; ++i) {
 
@@ -157,14 +176,42 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 // hit
                 if (distanceToPlayer <= minimumDistanceToPlayer) {
                     
-                    _player.takeDamage();
                     currentAsteroid.takeDamage();
                     _asteroidArray.remove(currentAsteroid);
 
-                    // screenShake
-                    this.shakeScreen(0.1);
-                    // vibration
-                    navigator.vibrate(100);
+                    if (!_player.isShieldActive){
+
+                        _player.takeDamage();
+
+                        // screenShake
+                        this.shakeScreen(0.1);
+                        // vibration
+                        navigator.vibrate(100);
+                    }
+
+                    continue;
+                }
+            }
+
+            // asteroids & enemy
+            for (let i = 0; i < _asteroidArray.arr.length; ++i) {
+
+                let currentAsteroid = _asteroidArray.getObjectAt(i);
+
+                if(currentAsteroid == null || typeof(currentAsteroid) == 'undefined') {
+                    _asteroidArray.remove(currentAsteroid);
+                    --i;
+                    continue;
+                }
+
+                const distanceToEnemy = _enemy.transform.distanceToTransform(currentAsteroid.transform);
+                const minimumDistanceToEnemy = _enemy.transform.width / 2.0 + currentAsteroid.transform.width * currentAsteroid.hitboxMultiplayer / 2.0;
+
+                // hit
+                if (distanceToEnemy <= minimumDistanceToEnemy) {
+                    
+                    currentAsteroid.takeDamage();
+                    _asteroidArray.remove(currentAsteroid);
 
                     continue;
                 }

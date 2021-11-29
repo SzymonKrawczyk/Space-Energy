@@ -6,13 +6,17 @@
 // Author: Szymon Krawczyk
 
 /******************** Declare game specific global data and functions *****************/
-/* images must be declared as global, so that they will load before the game starts  */
+/* images must be declared as global, so that they will load before the game starts   */
 
 let image_spaceShipPlayer = new Image();
 image_spaceShipPlayer.src = "img/spaceshooter/PNG/ufoBlue.png";
-
 let image_shield = new Image();
 image_shield.src = "img/myAssets/shield2.png";
+
+let image_spaceShipEnemy = new Image();
+image_spaceShipEnemy.src = "img/spaceshooter/PNG/ufoRed.png";
+let image_shield_Enemy = new Image();
+image_shield_Enemy.src = "img/myAssets/shieldRed3.png";
 
 let image_bg = new Image();
 image_bg.src = "img/spaceshooter/Backgrounds/black.png";
@@ -64,9 +68,10 @@ function playGame() {
 
     // moving background
     // gameObjects - objects that never reset (background)
-    gameObjects.push(new MovingBackground(image_bg, 256, 256,   0,      -15, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256,   0,     -15, -5, 32));
     gameObjects.push(new MovingBackground(image_bg, 256, 256, 256 - 2, -15, -5, 32));
     gameObjects.push(new MovingBackground(image_bg, 256, 256, 512 - 4, -15, -5, 32));
+
 
     _asteroidArray = new GameObjectArray();
     
@@ -79,10 +84,10 @@ function playGame() {
         //test
         _energyArray.add(new Energy(image_energy, canvas.width / 2, canvas.height - 50, 40, 2.0, 32));
 
-    _enemy = new GameObject();
+        
     _player = new Player(image_spaceShipPlayer, image_shield);
 
-
+    _enemy = new Enemy(image_spaceShipEnemy, image_shield_Enemy, _player);
 
 
     _uiArray = new GameObjectArray();

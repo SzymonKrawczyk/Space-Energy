@@ -33,7 +33,11 @@ class Asetroid extends GameObject2 {
     render() {
 		
 		this.transform.startRotation();
-            ctx.drawImage(this.image, this.transform.x - this.transform.width / 2, this.transform.y - this.transform.width / 2, this.transform.width, this.transform.width);
+        ctx.drawImage(
+            this.image
+            , this.transform.x - this.transform.width / 2, this.transform.y - this.transform.width / 2
+            , this.transform.width, this.transform.width
+        );
         this.transform.endRotation();
     }
 }

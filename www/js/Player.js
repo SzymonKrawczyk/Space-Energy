@@ -19,6 +19,7 @@ class Player extends GameObject2 {
 
 		this.rotationRate = 90;
 		
+		this.speed = 60;
 		this.vx = 0.0;
 		this.vy = 0.0;
 
@@ -37,10 +38,10 @@ class Player extends GameObject2 {
 		this.currentBlinkingTimer = 0.0;
 
 		// Energy
-		this.energyMax = 100.0;
+		this.energyMax = 150.0;
 		this.energy = this.energyMax;
 		this.energyUsagePerSecond = 5.0;
-		this.energyUsagePerShield = 10.0;
+		this.energyUsagePerShield = 20.0;
 
 		//this.energyVisualizer = energyVisualizer;
 	}
@@ -70,6 +71,14 @@ class Player extends GameObject2 {
 
 			this.energy -= this.energyUsagePerShield;
 
+			if(this.energy <= 0) {
+
+				console.log("No Energy! Critcal damage!");
+				this.energy = 0;
+
+				return;
+			}
+
 			this.isShieldActive = true;
 			this.isShieldVisible = true;
 			this.currentShieldTimer = 0.0;
@@ -96,6 +105,8 @@ class Player extends GameObject2 {
 
 		this.vx = x / 5.0;
 		this.vy = y / 5.0;
+		//console.log(this.vx);
+		//console.log(this.vy);
 	}
 	
 	updateState() {
@@ -104,7 +115,7 @@ class Player extends GameObject2 {
 		this.transform.addRotation(this.rotationRate * this.deltaTime);		
 
 		//movement
-        this.transform.x += this.vx;
+        this.transform.x += this.vx * this.speed * this.deltaTime;
         if (this.transform.x > canvas.width - this.transform.width / 2) {
 			
             this.transform.x = canvas.width - this.transform.width / 2;
@@ -113,7 +124,7 @@ class Player extends GameObject2 {
 			
 			this.transform.x = 0 + this.transform.width / 2;
 		}		
-		this.transform.y += this.vy;
+		this.transform.y += this.vy * this.speed * this.deltaTime;
         if (this.transform.y > canvas.height - this.transform.width / 2) {
 			
             this.transform.y = canvas.height - this.transform.width / 2;
