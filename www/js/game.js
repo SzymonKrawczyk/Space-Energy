@@ -42,7 +42,8 @@ image_asteroids_array[3].src = "img/spaceshooter/PNG/Meteors/meteorBrown_med3.pn
 
 
 let image_energy = new Image();
-image_energy.src = "img/myAssets/energy.png";
+//image_energy.src = "img/myAssets/energy.png";
+image_energy.src = "img/spaceshooter/PNG/Lasers/laserBlue11.png";
 
 let _GLOBAL = {
 
@@ -52,6 +53,7 @@ let _GLOBAL = {
 
 _asteroidArray = null;
 _energyArray = null;
+_energyManager = null;
 
 _enemy = null;
 _player = null;
@@ -76,15 +78,15 @@ function playGame() {
     _asteroidArray = new GameObjectArray();
     
         //test
-        _asteroidArray.add(new Asetroid(image_asteroids_array[3], canvas.width / 2, canvas.heightStart + 50, 50, 2.0, 32));
-        _asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, canvas.heightStart + 120, 90, 1.0, 32));
+        _asteroidArray.add(new Asetroid(image_asteroids_array[3], canvas.width / 2, canvas.heightStart + 50, 50, 2.0));
+        _asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, canvas.heightStart + 120, 90, 1.0));
 
     _energyArray = new GameObjectArray();
-
+    _energyManager = new EnergyManager(image_energy);
         //test
-        _energyArray.add(new Energy(image_energy, canvas.width / 2, canvas.height - 50, 40, 2.0, 32));
+        //_energyArray.add(new Energy(image_energy, canvas.width / 2, canvas.height - 50, 40, 2.0));
 
-        
+
     _player = new Player(image_spaceShipPlayer, image_shield);
 
     _enemy = new Enemy(image_spaceShipEnemy, image_shield_Enemy, _player);

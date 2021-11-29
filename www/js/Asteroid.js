@@ -2,9 +2,9 @@
 
 class Asetroid extends GameObject2 {
 
-    constructor(image, x, y, size, speed, cps) {
+    constructor(image, x, y, size, speed) {
 
-        super(cps); 
+        super(32); 
 
         this.image = image;
         this.transform.width = size;

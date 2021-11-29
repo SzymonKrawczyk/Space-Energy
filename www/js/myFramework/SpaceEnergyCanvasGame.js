@@ -21,6 +21,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
         _asteroidArray.start();
         _energyArray.start();
+        _energyManager.start();
 
         _enemy.start();
         _player.start();
@@ -51,7 +52,9 @@ class SpaceEnergyCanvasGame extends CanvasGame {
             _GLOBAL.score = 0;
 
             _scoreManager.reset();
+
             _enemy.startAI();
+            _energyManager.startAI();
 
             //test
             //setTimeout(() => {this.gameEnd()}, 4000);
@@ -67,6 +70,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
             _player.reset();
             _enemy.reset();
+            _energyManager.reset();
 
             this.gameWait();            
         }
@@ -150,7 +154,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     if (!_player.isShieldActive){
 
                         _player.takeDamage();
-                        
+
                         // screenShake
                         this.shakeScreen(0.1);
                         // vibration
@@ -223,7 +227,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 let currentEnergy = _energyArray.getObjectAt(i);
 
                 if(currentEnergy == null || typeof(currentEnergy) == 'undefined') {
-                    _asteroidArray.remove(currentEnergy);
+                    _energyArray.remove(currentEnergy);
                     --i;
                     continue;
                 }
@@ -242,7 +246,39 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 }
             }
 
+            // energy despawn
+            for (let i = 0; i < _energyArray.arr.length; ++i) {
 
+                let currentEnergy = _energyArray.getObjectAt(i);
+
+                if(currentEnergy == null || typeof(currentEnergy) == 'undefined') {
+                    _energyArray.remove(currentEnergy);
+                    --i;
+                    continue;
+                }
+
+                let offScreen = false;
+                if(currentEnergy.movementHorizontal) {
+
+                    if (Math.abs(currentEnergy.transform.x - currentEnergy.target.x) <= 25) offScreen = true;
+
+                } else {
+
+                    if (Math.abs(currentEnergy.transform.y - currentEnergy.target.y) <= 25) offScreen = true;
+                }
+
+                // off-screen
+                if (offScreen) {
+                    
+                    currentEnergy.destroy();
+                    _energyArray.remove(currentEnergy);
+
+                    console.log("Energy off-screen!");
+                    console.log(_energyArray);
+
+                    continue;
+                }
+            }
         }
     }
 }

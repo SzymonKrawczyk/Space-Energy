@@ -2,9 +2,9 @@
 
 class Energy extends GameObject2 {
 
-    constructor(image, x, y, size, speed, cps) {
+    constructor(image, x, y, targetX, targetY, size, speed, rotationRate, movementHorizontal) {
 
-        super(cps); 
+        super(32); 
 
         this.image = image;
         this.transform.width = size;
@@ -12,12 +12,39 @@ class Energy extends GameObject2 {
         this.transform.x = x;
         this.transform.y = y;
         
+        this.vx = 0;
+        this.vy = 0;
+        this.target = new Transform();
+        this.target.x = targetX;
+        this.target.y = targetY;
+        this.targetVector = {x: 0, y: 0};
+        this.targetVectorMultiplayer = 8;
+        this.calculateTargetVector();
+        this.targetSize = 10;
         this.speed = speed;
         
-        this.rotationDirection = Math.getRandomIntInclusive(0, 1) == 0;
-		this.rotationRate = 45;
+        this.rotationDirection = Math.random() >= 0.5;
+		this.rotationRate = rotationRate;
 
-        this.value = 10.0;
+        this.value = 15.0;
+    }
+
+    calculateTargetVector() {
+
+        // vector to target
+        this.targetVector = {
+
+              x: this.target.x - this.transform.x
+            , y: this.target.y - this.transform.y
+        }
+
+        // normalize
+        const distance = this.transform.distanceToTransform(this.target);
+        this.targetVector.x = this.targetVector.x / distance;
+        this.targetVector.y = this.targetVector.y / distance;
+
+        this.vx = this.targetVector.x * this.targetVectorMultiplayer;
+		this.vy = this.targetVector.y * this.targetVectorMultiplayer;
     }
 
     collect() {
@@ -25,9 +52,19 @@ class Energy extends GameObject2 {
         this.stopAndHide();
     }
 
+    destroy() {
+        
+        this.stopAndHide();
+    }
+
     updateState() {
 		
-		this.transform.addRotation(this.rotationRate * this.deltaTime * this.speed * (this.rotationDirection ? 1 : -1));	
+		this.transform.addRotation(this.rotationRate * this.deltaTime * (this.rotationDirection ? 1 : -1));
+        
+        this.transform.x += this.vx * this.speed * this.deltaTime;
+        
+		this.transform.y += this.vy * this.speed * this.deltaTime;
+       
     }
 
     render() {
