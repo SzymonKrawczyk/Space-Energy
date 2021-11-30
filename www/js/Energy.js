@@ -27,7 +27,7 @@ class Energy extends GameObject2 {
         this.rotationDirection = Math.random() >= 0.5;
 		this.rotationRate = rotationRate;
 
-        this.value = 15.0;
+        this.value = 20.0;
 
         this.movementHorizontal = movementHorizontal;
     }

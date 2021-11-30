@@ -47,11 +47,11 @@ class EnergyManager extends GameObject2 {
         
         if (this.isActive) {
 
-            this.currentSpawnTimer += this.deltaTime;
+            this.currentSpawnTimer += this.deltaTime * _GLOBAL.multiplayers.energySpawn;
 
             if(this.currentSpawnTimer >= this.spawnInterval) {
 
-                console.log(`Spawning energy!`);
+                //console.log(`Spawning energy!`);
                 this.currentSpawnTimer = 0.0;
 
                 let tempX = 0;

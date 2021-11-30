@@ -25,7 +25,7 @@ class AsteroidManager extends GameObject2 {
         this.spawnWidthLength  = canvas.width;
         
         this.isActive = false;
-        this.spawnInterval = 1.5;
+        this.spawnInterval = 1.8;
         this.currentSpawnTimer = 0.0;
 
         this.warningArray = new GameObjectArray();
@@ -58,11 +58,11 @@ class AsteroidManager extends GameObject2 {
         
         if (this.isActive) {
 
-            this.currentSpawnTimer += this.deltaTime;
+            this.currentSpawnTimer += this.deltaTime * _GLOBAL.multiplayers.asteroidSpawn;
 
             if(this.currentSpawnTimer >= this.spawnInterval) {
 
-                console.log(`Spawning asteroid!`);
+                //console.log(`Spawning asteroid!`);
                 this.currentSpawnTimer = 0.0;
 
                 let tempX = 0;

@@ -52,6 +52,12 @@ let _GLOBAL = {
 
       gameState: "Loading"
     , score: 0
+    , multiplayers: {
+          asteroidSpawn: 1.0
+        , energySpawn:   1.0
+        , energyDrain:   1.0
+        , enemyWaiting:  1.0
+    }
 }
 
 _asteroidArray = null;
@@ -62,9 +68,12 @@ _energyManager = null;
 _enemy = null;
 _player = null;
 
+_difficultyManager = null
+
 _scoreManager = null;
 _uiArray = null;
 _playButton = null;
+
 
 /******************* END OF Declare game specific data and functions *****************/
 
@@ -95,6 +104,8 @@ function playGame() {
     _player = new Player(image_spaceShipPlayer, image_shield);
 
     _enemy = new Enemy(image_spaceShipEnemy, image_shield_Enemy, _player);
+
+    _difficultyManager = new DifficultyManager();
 
 
     _uiArray = new GameObjectArray();

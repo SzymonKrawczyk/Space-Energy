@@ -38,10 +38,10 @@ class Player extends GameObject2 {
 		this.currentBlinkingTimer = 0.0;
 
 		// Energy
-		this.energyMax = 150.0;
+		this.energyMax = 200.0;
 		this.energy = this.energyMax;
 		this.energyUsagePerSecond = 5.0;
-		this.energyUsagePerShield = 25.0;
+		this.energyUsagePerShield = 20.0;
 	}
 
 	reset() {		
@@ -107,7 +107,7 @@ class Player extends GameObject2 {
 		this.rotationRate = this.rotationRateMin + Math.max(Math.abs(x), Math.abs(y)) * 10;
 		if(this.rotationRate >= 360) this.rotationRate = 360;
 
-		console.log(this.rotationRate);
+		//console.log(this.rotationRate);
 
 		//console.log(this.vx);
 		//console.log(this.vy);
@@ -171,7 +171,7 @@ class Player extends GameObject2 {
 
 			if(this.energy > 0) {
 
-				this.energy -= this.energyUsagePerSecond * this.deltaTime;
+				this.energy -= this.energyUsagePerSecond * this.deltaTime * _GLOBAL.multiplayers.energyDrain;
 
 				if(this.energy <= 0) {
 

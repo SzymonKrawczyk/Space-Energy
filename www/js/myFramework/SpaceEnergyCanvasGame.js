@@ -27,8 +27,11 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         _enemy.start();
         _player.start();
 
+        _difficultyManager.start();
+
         _scoreManager.start();
         _uiArray.start();
+
 
         this.gameWait();
     }
@@ -74,6 +77,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
             _enemy.reset();
             _asteroidManager.reset();
             _energyManager.reset();
+
+            _difficultyManager.reset();
 
             this.gameWait();            
         }
@@ -254,8 +259,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     currentAsteroid.destroy();
                     _asteroidArray.remove(currentAsteroid);
 
-                    console.log("Asteroid off-screen!");
-                    console.log(_asteroidArray);
+                    //console.log("Asteroid off-screen!");
+                    //console.log(_asteroidArray);
 
                     continue;
                 }
@@ -313,8 +318,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     currentEnergy.destroy();
                     _energyArray.remove(currentEnergy);
 
-                    console.log("Energy off-screen!");
-                    console.log(_energyArray);
+                    //console.log("Energy off-screen!");
+                    //console.log(_energyArray);
 
                     continue;
                 }
