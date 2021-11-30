@@ -11,13 +11,14 @@ class Player extends GameObject2 {
 		this.image_Ship = image_Ship;
 
 		// Position, Movement
-		this.transform.x = canvas.width / 2.0;
-		this.transform.y = ((canvas.height - canvas.heightStart) / 2.0) + canvas.heightStart;
-
 		this.transform.width = 48;
 		this.transform.height = 48;
 
-		this.rotationRate = 90;
+		this.transform.x = canvas.width / 2.0;
+		this.transform.y = canvas.height - this.transform.height;
+
+		this.rotationRateMin = 180;
+		this.rotationRate = this.rotationRateMin;
 		
 		this.speed = 60;
 		this.vx = 0.0;
@@ -102,6 +103,12 @@ class Player extends GameObject2 {
 
 		this.vx = x / 5.0;
 		this.vy = y / 5.0;
+
+		this.rotationRate = this.rotationRateMin + Math.max(Math.abs(x), Math.abs(y)) * 10;
+		if(this.rotationRate >= 360) this.rotationRate = 360;
+
+		console.log(this.rotationRate);
+
 		//console.log(this.vx);
 		//console.log(this.vy);
 	}
