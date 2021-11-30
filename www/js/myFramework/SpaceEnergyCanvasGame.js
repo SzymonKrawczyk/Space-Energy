@@ -101,15 +101,13 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         super.render(); // original gameObjects (background)
 
         _asteroidArray.render();
-        _asteroidManager.render();
         _energyArray.render();
 
         _enemy.render();
         _player.render();
 
-        //_scoreManager.render();
+        _asteroidManager.render();
         _uiArray.render();
-
         
         ctx.restore();
     }
@@ -149,8 +147,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
             // enemy & player
             {
-                const distanceToPlayer = _player.transform.distanceToTransform(_enemy.transform);
-                const minimumDistanceToPlayer = _player.transform.width / 2.0 + _enemy.transform.width * _enemy.hitboxMultiplayer / 2.0;
+                const distanceToPlayer = _player.transform.distanceToTransform2(_enemy.transform);
+                const minimumDistanceToPlayer = Math.pow(_player.transform.width / 2.0 + _enemy.transform.width * _enemy.hitboxMultiplayer / 2.0, 2.0);
 
                 // hit
                 if (distanceToPlayer <= minimumDistanceToPlayer) {
@@ -178,14 +176,16 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     continue;
                 }
 
-                const distanceToPlayer = _player.transform.distanceToTransform(currentAsteroid.transform);
-                const minimumDistanceToPlayer = _player.transform.width / 2.0 + currentAsteroid.transform.width * currentAsteroid.hitboxMultiplayer / 2.0;
+                if(!currentAsteroid.isActive) continue;
+
+                const distanceToPlayer = _player.transform.distanceToTransform2(currentAsteroid.transform);
+                const minimumDistanceToPlayer = Math.pow(_player.transform.width / 2.0 + currentAsteroid.transform.width * currentAsteroid.hitboxMultiplayer / 2.0, 2.0);
 
                 // hit
                 if (distanceToPlayer <= minimumDistanceToPlayer) {
                     
                     currentAsteroid.takeDamage();
-                    _asteroidArray.remove(currentAsteroid);
+                    //_asteroidArray.remove(currentAsteroid);
 
                     if (!_player.isShieldActive){
 
@@ -212,14 +212,16 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     continue;
                 }
 
-                const distanceToEnemy = _enemy.transform.distanceToTransform(currentAsteroid.transform);
-                const minimumDistanceToEnemy = _enemy.transform.width / 2.0 + currentAsteroid.transform.width * currentAsteroid.hitboxMultiplayer / 2.0;
+                if(!currentAsteroid.isActive) continue;
+
+                const distanceToEnemy = _enemy.transform.distanceToTransform2(currentAsteroid.transform);
+                const minimumDistanceToEnemy = Math.pow(_enemy.transform.width / 2.0 + currentAsteroid.transform.width * currentAsteroid.hitboxMultiplayer / 2.0, 2.0);
 
                 // hit
                 if (distanceToEnemy <= minimumDistanceToEnemy) {
                     
                     currentAsteroid.takeDamage();
-                    _asteroidArray.remove(currentAsteroid);
+                    //_asteroidArray.remove(currentAsteroid);
 
                     continue;
                 }
@@ -270,8 +272,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     continue;
                 }
 
-                const distanceToPlayer = _player.transform.distanceToTransform(currentEnergy.transform);
-                const minimumDistanceToPlayer = _player.transform.width / 2.0 + currentEnergy.transform.width * currentEnergy.hitboxMultiplayer / 2.0;
+                const distanceToPlayer = _player.transform.distanceToTransform2(currentEnergy.transform);
+                const minimumDistanceToPlayer = Math.pow(_player.transform.width / 2.0 + currentEnergy.transform.width * currentEnergy.hitboxMultiplayer / 2.0, 2.0);
 
                 // hit
                 if (distanceToPlayer <= minimumDistanceToPlayer) {

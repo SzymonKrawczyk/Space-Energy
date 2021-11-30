@@ -11,8 +11,8 @@ class EnergyManager extends GameObject2 {
         this.sizeLow = 20;
         this.sizeRange = 15;
 
-        this.speedLow = 5;
-        this.speedRange = 10;
+        this.speedLow = 6;
+        this.speedRange = 12;
 
         this.rotationLow = 45;
         this.rotationRange = 135;

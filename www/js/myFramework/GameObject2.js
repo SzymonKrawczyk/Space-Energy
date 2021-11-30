@@ -18,4 +18,9 @@ class GameObject2 extends GameObject {
         
         return this.transform.distanceToTransform(other.transform);
     }
+
+    distanceToObject2(other) {
+        
+        return this.transform.distanceToTransform2(other.transform);
+    }
 }

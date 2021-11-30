@@ -13,7 +13,7 @@ class AsteroidManager extends GameObject2 {
         this.sizeRange = 25;
 
         this.speedLow = 10;
-        this.speedRange = 25;
+        this.speedRange = 30;
 
         this.rotationLow = 45;
         this.rotationRange = 225;

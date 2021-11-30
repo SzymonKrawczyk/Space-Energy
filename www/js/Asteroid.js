@@ -28,6 +28,10 @@ class Asteroid extends GameObject2 {
 		this.rotationRate = rotationRate;
 
         this.movementHorizontal = movementHorizontal;
+
+        this.isActive = true;
+        this.alpha = 100;
+        this.alphaRemovePerSecond = 400.0;
     }
 
     calculateTargetVector() {
@@ -50,11 +54,12 @@ class Asteroid extends GameObject2 {
 
     takeDamage() {
 
-        this.stopAndHide();
+        this.isActive = false;
     }
 
     destroy() {
 
+        _asteroidArray.remove(this);
         this.stopAndHide();
     }
 
@@ -65,11 +70,24 @@ class Asteroid extends GameObject2 {
         this.transform.x += this.vx * this.speed * this.deltaTime;
         
 		this.transform.y += this.vy * this.speed * this.deltaTime;
+
+        if(!this.isActive) {
+
+            this.alpha -= this.alphaRemovePerSecond * this.deltaTime;
+            if(this.alpha <= 0) {
+                this.destroy();
+            }
+        }
     }
 
     render() {
 		
 		this.transform.startRotation();
+
+        if(!this.isActive) {
+
+            ctx.globalAlpha = this.alpha / 100.0;
+        }
 
         ctx.drawImage(
               this.image

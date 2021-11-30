@@ -23,17 +23,16 @@ class Player extends GameObject2 {
 		this.vx = 0.0;
 		this.vy = 0.0;
 
-
 		// Shield
 		this.image_Shield = image_Shield;
 		this.shieldSizeMultiplayer = 1.4;
 		this.isShieldActive = false;
 		this.isShieldVisible = false;
 
-		this.shieldTime = 5.0;
+		this.shieldTime = 2.0;
 		this.currentShieldTimer = 0.0;
 
-		this.shieldBlinkingStart = 3.0;
+		this.shieldBlinkingStart = 1.0;
 		this.shieldBlinkingInterval = 0.15;
 		this.currentBlinkingTimer = 0.0;
 
@@ -41,7 +40,7 @@ class Player extends GameObject2 {
 		this.energyMax = 150.0;
 		this.energy = this.energyMax;
 		this.energyUsagePerSecond = 5.0;
-		this.energyUsagePerShield = 20.0;
+		this.energyUsagePerShield = 25.0;
 	}
 
 	reset() {		

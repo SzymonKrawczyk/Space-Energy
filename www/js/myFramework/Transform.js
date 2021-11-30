@@ -39,4 +39,9 @@ class Transform {
 
         return Math.sqrt(Math.pow(this.x - other.x, 2.0) + Math.pow(this.y - other.y, 2.0));
     }
+
+    distanceToTransform2(other) {
+
+        return Math.pow(this.x - other.x, 2.0) + Math.pow(this.y - other.y, 2.0);
+    }
 }
