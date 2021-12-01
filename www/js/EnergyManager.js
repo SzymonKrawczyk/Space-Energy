@@ -2,11 +2,12 @@
 
 class EnergyManager extends GameObject2 {
 
-    constructor(image) {
+    constructor(image, sound) {
 
         super(4); 
         
         this.image = image;
+        this.sound = sound;
 
         this.sizeLow = 20;
         this.sizeRange = 15;
@@ -108,7 +109,7 @@ class EnergyManager extends GameObject2 {
                 let tempSpeed = this.speedLow + this.speedRange * (1.0 - rEnergy);
                 let tempRotation = this.rotationLow + this.rotationRange * (1.0 - rEnergy);
 
-                let newEnergy = new Energy(this.image, tempX, tempY, tempTargetX, tempTargetY, tempSize, tempSpeed, tempRotation, LR);
+                let newEnergy = new Energy(this.image, this.sound, tempX, tempY, tempTargetX, tempTargetY, tempSize, tempSpeed, tempRotation, LR);
 
                 //console.log(newEnergy);
                 newEnergy.start();

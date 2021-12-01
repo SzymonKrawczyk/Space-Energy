@@ -12,6 +12,10 @@ let image_spaceShipPlayer = new Image();
 image_spaceShipPlayer.src = "img/spaceshooter/PNG/ufoBlue.png";
 let image_shield = new Image();
 image_shield.src = "img/myAssets/shield2.png";
+let sound_shield_up = new Audio();
+sound_shield_up.src = "audio/spaceshooter/Bonus/sfx_shieldUp.ogg";
+let sound_shield_down = new Audio();
+sound_shield_down.src = "audio/spaceshooter/Bonus/sfx_shieldDown.ogg";
 
 let image_spaceShipEnemy = new Image();
 image_spaceShipEnemy.src = "img/spaceshooter/PNG/ufoRed.png";
@@ -47,6 +51,13 @@ image_asteroidWarning.src = "img/myAssets/warning.png";
 let image_energy = new Image();
 //image_energy.src = "img/myAssets/energy.png";
 image_energy.src = "img/spaceshooter/PNG/Lasers/laserBlue11.png";
+let sound_energy = new Audio();
+sound_energy.src = "audio/spaceshooter/Bonus/sfx_zap.ogg";
+
+let sound_background = new Audio();
+sound_background.src = "audio/KevinMcLeod/PhantomFromSpace/Phantom_from_Space.mp3";
+let sound_gameEnd = new Audio();
+sound_gameEnd.src = "audio/spaceshooter/Bonus/sfx_lose.ogg";
 
 let _GLOBAL = {
 
@@ -74,6 +85,7 @@ _scoreManager = null;
 _uiArray = null;
 _playButton = null;
 
+_soundManager = null
 
 /******************* END OF Declare game specific data and functions *****************/
 
@@ -96,17 +108,18 @@ function playGame() {
         //_asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, canvas.heightStart + 120, 90, 1.0));
 
     _energyArray = new GameObjectArray();
-    _energyManager = new EnergyManager(image_energy);
+    _energyManager = new EnergyManager(image_energy, sound_energy);
         //test
         //_energyArray.add(new Energy(image_energy, canvas.width / 2, canvas.height - 50, 40, 2.0));
 
 
-    _player = new Player(image_spaceShipPlayer, image_shield);
+    _player = new Player(image_spaceShipPlayer, image_shield, sound_shield_up, sound_shield_down);
 
     _enemy = new Enemy(image_spaceShipEnemy, image_shield_Enemy, _player);
 
     _difficultyManager = new DifficultyManager();
 
+    _soundManager = new SoundManager(sound_background, sound_gameEnd);
 
     _uiArray = new GameObjectArray();
 

@@ -38,6 +38,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         _scoreManager.start();
         _uiArray.start();
 
+        _soundManager.start();
 
         this.gameWait();
     }
@@ -66,6 +67,10 @@ class SpaceEnergyCanvasGame extends CanvasGame {
             _enemy.startAI();
             _asteroidManager.startAI();
             _energyManager.startAI();
+            
+            setTimeout(() => {                
+                _soundManager.startBackground();
+            }, 250);
 
             //test
             //setTimeout(() => {this.gameEnd()}, 4000);
@@ -116,6 +121,9 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         if (_GLOBAL.gameState == "Playing") {
 
             _GLOBAL.gameState = "GameEndWait";    
+
+            _soundManager.playGameEndSound();
+
             (async () => {
                 this.highScoreObject = await window.Firebase.getDocument();
             })();

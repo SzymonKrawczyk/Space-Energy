@@ -2,11 +2,12 @@
 
 class Energy extends GameObject2 {
 
-    constructor(image, x, y, targetX, targetY, size, speed, rotationRate, movementHorizontal) {
+    constructor(image, sound, x, y, targetX, targetY, size, speed, rotationRate, movementHorizontal) {
 
         super(32); 
 
         this.image = image;
+        this.sound = sound;
         this.transform.width = size;
         this.transform.height = size;
         this.transform.x = x;
@@ -52,7 +53,9 @@ class Energy extends GameObject2 {
 
     collect() {
 
-        this.stopAndHide();
+		this.sound.currentTime = 0;
+		this.sound.play();
+        this.destroy();
     }
 
     destroy() {

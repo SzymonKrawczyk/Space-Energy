@@ -2,13 +2,17 @@
 
 class Player extends GameObject2 {
 
-	constructor (image_Ship, image_Shield){
+	constructor (image_Ship, image_Shield, sound_shield_up, sound_shield_down){
 		
 		// Init
 		super(64);
 		
 		// Image
 		this.image_Ship = image_Ship;
+
+		// Sounds
+		this.sound_shield_up = sound_shield_up;
+		this.sound_shield_down = sound_shield_down;
 
 		// Position, Movement
 		this.transform.width = 48;
@@ -80,6 +84,9 @@ class Player extends GameObject2 {
 			this.isShieldActive = true;
 			this.isShieldVisible = true;
 			this.currentShieldTimer = 0.0;
+
+			this.sound_shield_up.currentTime = 0;
+			this.sound_shield_up.play();
 		}
     }
 
@@ -161,6 +168,9 @@ class Player extends GameObject2 {
 				this.currentShieldTimer = 0.0;
 
 				this.currentBlinkingTimer = 0.0;
+
+				this.sound_shield_down.currentTime = 0;
+				this.sound_shield_down.play();
 
 				//console.log("shield off!");
 			}
