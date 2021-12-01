@@ -70,7 +70,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
             
             setTimeout(() => {                
                 _soundManager.startBackground();
-            }, 250);
+            }, 1000);
 
             //test
             //setTimeout(() => {this.gameEnd()}, 4000);
