@@ -91,7 +91,7 @@ class Enemy extends GameObject2 {
 
             case "Calculating": 
 
-                if(this.currentStateTimer * _GLOBAL.multiplayers.enemyWaiting >= this.stateTimerCalculating) {
+                if(this.currentStateTimer >= this.stateTimerCalculating * _GLOBAL.multiplayers.enemyWaiting) {
 
                     this.calculateTargetVector();
                     this.currentStateTimer = 0.0;
