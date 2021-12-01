@@ -31,7 +31,7 @@ class AsteroidSpawner extends GameObject2 {
         
         if (this.currentTime >= this.TTL) {
 
-            console.log(`Releasing asteroid!`);
+            //console.log(`Releasing asteroid!`);
 
             this.currentTime = 0;
             this.asteroid.start();

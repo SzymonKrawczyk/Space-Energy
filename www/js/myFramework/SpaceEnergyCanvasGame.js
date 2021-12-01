@@ -13,6 +13,12 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         this.ScreenRotationDirectionToggle = false;
         this.SCREEN_SHAKES_PER_SECOND = 100;
         this.screenShakesLeft = 0;
+
+        // HighScore object
+        this.highScoreObject = {
+              name: "Unknown"
+            , score: -1
+        };
     }
 
     start() {
@@ -70,8 +76,29 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
         if (_GLOBAL.gameState == "GameEndWait") {
 
-            // TODO do some stuff with score, upload
-            alert(_GLOBAL.score);
+            //console.log(this.highScoreObject);
+            //alert(`${_GLOBAL.score}\n\rHighScore: ${this.highScoreObject.name} ${this.highScoreObject.score}`);
+
+            if(this.highScoreObject.score < 0) {
+
+                alert(`Your Score: ${_GLOBAL.score}\n\nNo internet connection!`);
+
+            } else {
+
+                if(_GLOBAL.score > this.highScoreObject.score) {
+
+                    let playerName = prompt(`Your Score (new highScore!): ${_GLOBAL.score}\n\nPrevious highScore: ${this.highScoreObject.score} by ${this.highScoreObject.name}\n\nPlease enter your name:`, "Unknown");
+                    if (playerName.length < 1) playerName = "Unknown";
+
+                    (async () => {
+                        await window.Firebase.setDocument(playerName, _GLOBAL.score);
+                    })();
+
+                } else {
+
+                    alert(`Your Score: ${_GLOBAL.score}\n\nHighScore: ${this.highScoreObject.score} by ${this.highScoreObject.name}`);
+                }
+            }
 
             _player.reset();
             _enemy.reset();
@@ -89,6 +116,9 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         if (_GLOBAL.gameState == "Playing") {
 
             _GLOBAL.gameState = "GameEndWait";    
+            (async () => {
+                this.highScoreObject = await window.Firebase.getDocument();
+            })();
             setTimeout(() => {this.gameEnd()}, 1000 * this.gameEndWaitTime);
         }
     }

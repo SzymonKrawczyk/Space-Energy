@@ -55,23 +55,23 @@ class Player extends GameObject2 {
 
 		if(this.isShieldActive) {
 
-			console.log("Shield! No Damage!");
+			//console.log("Shield! No Damage!");
 
 		} else {
 
 			if(this.energy <= 0) {
 				
-				console.log("No energy!");
+				//console.log("No energy!");
 				return;
 			}
 
-			console.log("Damage!");
+			//console.log("Damage!");
 
 			this.energy -= this.energyUsagePerShield;
 
 			if(this.energy <= 0) {
 
-				console.log("No Energy! Critcal damage!");
+				//console.log("No Energy! Critcal damage!");
 				this.energy = 0;
 
 				return;
@@ -162,7 +162,7 @@ class Player extends GameObject2 {
 
 				this.currentBlinkingTimer = 0.0;
 
-				console.log("shield off!");
+				//console.log("shield off!");
 			}
 		}
 

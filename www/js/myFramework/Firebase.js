@@ -1,13 +1,12 @@
 // Author: Szymon Krawczyk
 
-// Import the functions you need from the SDKs you need
+// Import the functions from the SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.3.0/firebase-app.js";
-import { getFirestore, collection, getDocs, getDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.3.0/firebase-firestore.js";
-
+import { getFirestore, getDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.3.0/firebase-firestore.js";
 
 let Firebase = {};
 
-// Your web app's Firebase configuration
+// Firebase configuration
 Firebase.firebaseConfig = {
 
     apiKey: "AIzaSyA8eDUFESiFSBfWAyySM60i27HEW9-c6No",
@@ -22,39 +21,71 @@ Firebase.firebaseConfig = {
 Firebase.app = initializeApp(Firebase.firebaseConfig);
 Firebase.db = getFirestore(Firebase.app);
 
-Firebase.getCollection = async () => {
+// Firebase.getCollection = async () => {
 
-    const docRef = collection(Firebase.db, 'test');
-    const dataSnapshot = await getDocs(docRef);
-    const dataList = dataSnapshot.docs.map(doc => doc.data());
-    return dataList;
-}
+//     const docRef = collection(Firebase.db, 'gameData');
+//     const dataSnapshot = await getDocs(docRef);
+//     const dataList = dataSnapshot.docs.map(doc => doc.data());
+//     return dataList;
+// }
 
-Firebase.getDocument = async (docID) => {
+Firebase.getDocument = async () => {
 
-    const docRef = doc(Firebase.db, 'test', docID);
+    const docRef = doc(Firebase.db, 'gameData', 'highScore');
+
+    console.log("Getting document...");
 
     const docSnap = await getDoc(docRef);
 
+
     if (docSnap.exists()) {
 
-        return docSnap.data();
+        console.log(`Doc: ${docSnap.data().name} ${docSnap.data().score}`);
+
+        return {
+              name: docSnap.data().name
+            , score: docSnap.data().score
+        };
 
     } else {
 
-        return {score: 0};
+        console.log(`No doc!`);
+
+        return {
+              name: "Unknown"
+            , score: -1
+        };
     }
 }
 
-Firebase.setDocument = async (docID, newDoc) => {
+Firebase.setDocument = async (newName, newScore) => {
 
-    const docRef = doc(Firebase.db, 'test', docID);
+    console.log("Setting highScore...");
+
+    const newDoc = {
+          name: newName
+        , score: newScore
+    }
+
+    console.log(`newDoc: ${newDoc.name} ${newDoc.score}`);
+
+    console.log("Checking if highscore...");
+
+    const oldDoc = await Firebase.getDocument();
+
+    console.log(`oldDoc: ${oldDoc.name} ${oldDoc.score}`);
+
+    if(oldDoc.score >= newDoc.score) return;
+
+    const docRef = doc(Firebase.db, 'gameData', 'highScore');
+
     await setDoc(docRef, newDoc, { merge: true });
+
+    console.log("newDoc uploaded!");
 } 
 
-//export (attach to window global variable)
+// Export Firebase (attach to window global variable)
 window.Firebase = Firebase;
-
 
 
 //TODO - firebase, game code
