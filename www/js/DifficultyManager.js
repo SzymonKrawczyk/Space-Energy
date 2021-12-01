@@ -40,7 +40,7 @@ class DifficultyManager extends GameObject2 {
                     console.log(`Phase: ${this.currentPhase}`);
                     console.log(_GLOBAL.multiplayers);
 
-                    _GLOBAL.multiplayers.asteroidSpawn = 1.8;
+                    _GLOBAL.multiplayers.asteroidSpawn = 2.0;
                     _GLOBAL.multiplayers.energySpawn   = 1.6;
                     _GLOBAL.multiplayers.energyDrain   = 1.5;
                     _GLOBAL.multiplayers.enemyWaiting  = 0.2;
@@ -54,7 +54,7 @@ class DifficultyManager extends GameObject2 {
                     console.log(`Phase: ${this.currentPhase}`);
                     console.log(_GLOBAL.multiplayers);
 
-                    _GLOBAL.multiplayers.asteroidSpawn = 1.8;
+                    _GLOBAL.multiplayers.asteroidSpawn = 1.85;
                     _GLOBAL.multiplayers.energySpawn   = 1.35;
                     _GLOBAL.multiplayers.energyDrain   = 1.3;
                     _GLOBAL.multiplayers.enemyWaiting  = 0.4;
@@ -68,8 +68,8 @@ class DifficultyManager extends GameObject2 {
                     console.log(`Phase: ${this.currentPhase}`);
                     console.log(_GLOBAL.multiplayers);
 
-                    _GLOBAL.multiplayers.asteroidSpawn = 1.6;
-                    _GLOBAL.multiplayers.energySpawn   = 1.2;
+                    _GLOBAL.multiplayers.asteroidSpawn = 1.7;
+                    _GLOBAL.multiplayers.energySpawn   = 1.25;
                     _GLOBAL.multiplayers.energyDrain   = 1.2;
                     _GLOBAL.multiplayers.enemyWaiting  = 0.5;
                 }
@@ -83,7 +83,7 @@ class DifficultyManager extends GameObject2 {
                     console.log(_GLOBAL.multiplayers);
 
                     _GLOBAL.multiplayers.asteroidSpawn = 1.5;
-                    _GLOBAL.multiplayers.energySpawn   = 1.1;
+                    _GLOBAL.multiplayers.energySpawn   = 1.15;
                     _GLOBAL.multiplayers.energyDrain   = 1.1;
                     _GLOBAL.multiplayers.enemyWaiting  = 0.7;
                 }
@@ -97,7 +97,7 @@ class DifficultyManager extends GameObject2 {
                     console.log(_GLOBAL.multiplayers);
 
                     _GLOBAL.multiplayers.asteroidSpawn = 1.3;
-                    _GLOBAL.multiplayers.energySpawn   = 1.0;
+                    _GLOBAL.multiplayers.energySpawn   = 1.05;
                     _GLOBAL.multiplayers.energyDrain   = 1.0;
                     _GLOBAL.multiplayers.enemyWaiting  = 0.85;
                 }

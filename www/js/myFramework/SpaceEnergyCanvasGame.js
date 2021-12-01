@@ -88,7 +88,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 if(_GLOBAL.score > this.highScoreObject.score) {
 
                     let playerName = prompt(`Your Score (new highScore!): ${_GLOBAL.score}\n\nPrevious highScore: ${this.highScoreObject.score} by ${this.highScoreObject.name}\n\nPlease enter your name:`, "Unknown");
-                    if (playerName.length < 1) playerName = "Unknown";
+                    if (playerName == null || playerName == "") playerName = "Unknown";
 
                     (async () => {
                         await window.Firebase.setDocument(playerName, _GLOBAL.score);

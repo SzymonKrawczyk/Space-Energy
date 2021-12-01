@@ -25,7 +25,7 @@ class AsteroidManager extends GameObject2 {
         this.spawnWidthLength  = canvas.width;
         
         this.isActive = false;
-        this.spawnInterval = 1.8;
+        this.spawnInterval = 3.0;
         this.currentSpawnTimer = 0.0;
 
         this.warningArray = new GameObjectArray();
