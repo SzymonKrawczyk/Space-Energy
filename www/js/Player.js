@@ -34,17 +34,17 @@ class Player extends GameObject2 {
 		this.isShieldActive = false;
 		this.isShieldVisible = false;
 
-		this.shieldTime = 2.0;
+		this.shieldTime = 1.0;
 		this.currentShieldTimer = 0.0;
 
-		this.shieldBlinkingStart = 1.0;
-		this.shieldBlinkingInterval = 0.15;
+		this.shieldBlinkingStart = 0.5;
+		this.shieldBlinkingInterval = 0.1;
 		this.currentBlinkingTimer = 0.0;
 
 		// Energy
 		this.energyMax = 200.0;
 		this.energy = this.energyMax;
-		this.energyUsagePerSecond = 5.0;
+		this.energyUsagePerSecond = 6.0;
 		this.energyUsagePerShield = 20.0;
 	}
 
