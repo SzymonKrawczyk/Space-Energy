@@ -16,6 +16,7 @@ class Transform {
     addRotation(value) {
         this.rotation += value;
         if(this.rotation >= 360) this.rotation %= 360;
+        if(this.rotation <= -360) this.rotation %= 360;
     }
 
     startRotation() {

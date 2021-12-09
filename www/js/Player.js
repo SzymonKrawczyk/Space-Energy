@@ -23,6 +23,7 @@ class Player extends GameObject2 {
 
 		this.rotationRateMin = 180;
 		this.rotationRate = this.rotationRateMin;
+		this.rortationDirection = 1;
 		
 		this.speed = 60;
 		this.vx = 0.0;
@@ -114,16 +115,14 @@ class Player extends GameObject2 {
 		this.rotationRate = this.rotationRateMin + Math.max(Math.abs(x), Math.abs(y)) * 10;
 		if(this.rotationRate >= 360) this.rotationRate = 360;
 
-		//console.log(this.rotationRate);
-
-		//console.log(this.vx);
-		//console.log(this.vy);
+		if(this.vx > 0) this.rortationDirection = 1;
+		else this.rortationDirection = -1;
 	}
 	
 	updateState() {
 
 		//rotation
-		this.transform.addRotation(this.rotationRate * this.deltaTime);		
+		this.transform.addRotation(this.rotationRate * this.rortationDirection * this.deltaTime);		
 
 		//movement
         this.transform.x += this.vx * this.speed * this.deltaTime;

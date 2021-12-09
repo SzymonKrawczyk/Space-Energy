@@ -12,8 +12,8 @@ class EnergyManager extends GameObject2 {
         this.sizeLow = 20;
         this.sizeRange = 15;
 
-        this.speedLow = 6;
-        this.speedRange = 12;
+        this.speedLow = 8;
+        this.speedRange = 15;
 
         this.rotationLow = 45;
         this.rotationRange = 135;
@@ -63,8 +63,6 @@ class EnergyManager extends GameObject2 {
                 const LR = Math.random() <= this.probabilityLR;
                 const sideLow = Math.random() >= 0.5;
 
-                //console.log(LR);
-                //console.log(sideLow);
                 if(LR) {
 
                     if(sideLow) {   // spawn left, go right
@@ -109,12 +107,10 @@ class EnergyManager extends GameObject2 {
                 let tempSpeed = this.speedLow + this.speedRange * (1.0 - rEnergy);
                 let tempRotation = this.rotationLow + this.rotationRange * (1.0 - rEnergy);
 
-                let newEnergy = new Energy(this.image, this.sound, tempX, tempY, tempTargetX, tempTargetY, tempSize, tempSpeed, tempRotation, LR);
+                let newEnergy = new Energy(this.image, this.sound, tempX, tempY, tempTargetX, tempTargetY, tempSize, tempSpeed, tempRotation);
 
-                //console.log(newEnergy);
                 newEnergy.start();
                 _energyArray.add(newEnergy);
-                //console.log(_energyArray);
             }
         }
     }

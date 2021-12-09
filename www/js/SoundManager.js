@@ -9,7 +9,7 @@ class SoundManager extends GameObject {
         this.sound_background = sound_background;
         this.sound_gameEnd = sound_gameEnd;
 
-        this.sound_background.volume = 0.7;
+        this.sound_background.volume = 0.5;
 
         this.backgroundStarted = false;
 

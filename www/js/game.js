@@ -47,6 +47,12 @@ image_asteroids_array[3].src = "img/spaceshooter/PNG/Meteors/meteorBrown_med3.pn
 let image_asteroidWarning = new Image();
 image_asteroidWarning.src = "img/myAssets/warning.png";
 
+let image_explosion = new Image();
+image_explosion.src = "img/other/explosionSheet.png";
+
+let sound_explosion = new Audio();
+sound_explosion.src = "audio/sci-fi-sounds/Audio/explosionCrunch_000.ogg";
+
 
 let image_energy = new Image();
 //image_energy.src = "img/myAssets/energy.png";
@@ -73,6 +79,7 @@ let _GLOBAL = {
 
 _asteroidArray = null;
 _asteroidManager = null;
+_explosionArrray = null;
 _energyArray = null;
 _energyManager = null;
 
@@ -102,15 +109,12 @@ function playGame() {
 
     _asteroidArray = new GameObjectArray();
     _asteroidManager = new AsteroidManager(image_asteroids_array, image_asteroidWarning);
+
+    _explosionArrray = new GameObjectArray();
     
-        //test
-        //_asteroidArray.add(new Asetroid(image_asteroids_array[3], canvas.width / 2, canvas.heightStart + 50, 50, 2.0));
-        //_asteroidArray.add(new Asetroid(image_asteroids_array[0], canvas.width / 2, canvas.heightStart + 120, 90, 1.0));
 
     _energyArray = new GameObjectArray();
     _energyManager = new EnergyManager(image_energy, sound_energy);
-        //test
-        //_energyArray.add(new Energy(image_energy, canvas.width / 2, canvas.height - 50, 40, 2.0));
 
 
     _player = new Player(image_spaceShipPlayer, image_shield, sound_shield_up, sound_shield_down);
@@ -186,23 +190,4 @@ function playGame() {
         } 
     });
 
-    // document.addEventListener("keyup", function (e)
-    // {
-    //     if (e.keyCode === 37)  // left
-    //     {
-    //         _player.setOrientation(0, 0);
-    //     }
-    //     else if (e.keyCode === 38) // up
-    //     {
-    //         _player.setOrientation(0, 0);
-    //     }
-    //     else if (e.keyCode === 39) // right
-    //     {
-    //         _player.setOrientation(0, 0);
-    //     }
-    //     else if (e.keyCode === 40) // down
-    //     {
-    //         _player.setOrientation(0, 0);
-    //     } 
-    // });
 }

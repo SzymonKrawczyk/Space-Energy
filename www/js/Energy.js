@@ -2,7 +2,7 @@
 
 class Energy extends GameObject2 {
 
-    constructor(image, sound, x, y, targetX, targetY, size, speed, rotationRate, movementHorizontal) {
+    constructor(image, sound, x, y, targetX, targetY, size, speed, rotationRate) {
 
         super(32); 
 
@@ -29,8 +29,6 @@ class Energy extends GameObject2 {
 		this.rotationRate = rotationRate;
 
         this.value = 20.0;
-
-        this.movementHorizontal = movementHorizontal;
     }
 
     calculateTargetVector() {
@@ -49,6 +47,9 @@ class Energy extends GameObject2 {
 
         this.vx = this.targetVector.x * this.targetVectorMultiplayer;
 		this.vy = this.targetVector.y * this.targetVectorMultiplayer;
+
+		if(this.vx > 0) this.rortationDirection = 1;
+		else this.rortationDirection = -1;
     }
 
     collect() {

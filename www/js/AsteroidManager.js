@@ -12,7 +12,7 @@ class AsteroidManager extends GameObject2 {
         this.sizeLow = 40;
         this.sizeRange = 25;
 
-        this.speedLow = 10;
+        this.speedLow = 15;
         this.speedRange = 30;
 
         this.rotationLow = 45;
@@ -62,7 +62,6 @@ class AsteroidManager extends GameObject2 {
 
             if(this.currentSpawnTimer >= this.spawnInterval) {
 
-                //console.log(`Spawning asteroid!`);
                 this.currentSpawnTimer = 0.0;
 
                 let tempX = 0;
@@ -74,9 +73,6 @@ class AsteroidManager extends GameObject2 {
 
                 const LR = Math.random() <= this.probabilityLR;
                 const sideLow = Math.random() >= 0.5;
-
-                //console.log(LR);
-                //console.log(sideLow);
 
                 if(LR) {
                     
@@ -141,15 +137,12 @@ class AsteroidManager extends GameObject2 {
                 let tempSpeed = this.speedLow + this.speedRange * (1.0 - rEnergy);
                 let tempRotation = this.rotationLow + this.rotationRange * (1.0 - rEnergy);
 
-                let newAsteroid = new Asteroid(this.image_array_asteroids[rImage], tempX, tempY, tempTargetX, tempTargetY, tempSize, tempSpeed, tempRotation, LR);
+                let newAsteroid = new Asteroid(this.image_array_asteroids[rImage], tempX, tempY, tempTargetX, tempTargetY, tempSize, tempSpeed, tempRotation);
 
-                //console.log(newAsteroid);
                 let newAsteroid_warning = new AsteroidSpawner(this.image_warning, tempX_w, tempY_w, this.warningSize, newAsteroid, this.warningTTL, this);
                 newAsteroid_warning.start();
                 this.warningArray.add(newAsteroid_warning);
-                //newEnergy.start();
                 _asteroidArray.add(newAsteroid);
-                //console.log(_asteroidArray);
             }
         }
     }

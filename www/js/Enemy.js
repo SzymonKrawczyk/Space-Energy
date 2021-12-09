@@ -17,8 +17,9 @@ class Enemy extends GameObject2 {
 		this.transform.x = canvas.width / 2.0;
 		this.transform.y = canvas.heightStart + this.transform.height;
 
-		this.rotationRate = -270;
-		
+		this.rotationRate = 270;		
+		this.rortationDirection = 1;
+
         this.speed = 40;
 		this.vx = 0.0;
 		this.vy = 0.0;
@@ -31,8 +32,8 @@ class Enemy extends GameObject2 {
         this.targetVectorMultiplayer = 8;
         this.state = "Waiting"; // "Calculating", "Moving"
         this.currentStateTimer = 0.0;
-        this.stateTimerCalculating = 2.0;
-        this.stateTimerMoving = 0.5;
+        this.stateTimerCalculating = 1.5;
+        this.stateTimerMoving = 1.0;
 
 		// Shield
 		this.image_Shield = image_Shield;
@@ -80,6 +81,10 @@ class Enemy extends GameObject2 {
 		this.vy = this.targetVector.y * this.targetVectorMultiplayer;
 		//console.log(this.vx);
 		//console.log(this.vy);
+
+        
+		if(this.vx > 0) this.rortationDirection = 1;
+		else this.rortationDirection = -1;
     }
 	
 	updateState() {
@@ -112,7 +117,7 @@ class Enemy extends GameObject2 {
 
 
 		//rotation
-		this.transform.addRotation(this.rotationRate * this.deltaTime);		
+		this.transform.addRotation(this.rotationRate * this.rortationDirection * this.deltaTime);		
 
 		//movement
         this.transform.x += this.vx * this.speed * this.deltaTime;

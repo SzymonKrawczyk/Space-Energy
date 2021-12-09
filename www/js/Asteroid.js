@@ -2,7 +2,7 @@
 
 class Asteroid extends GameObject2 {
 
-    constructor(image, x, y, targetX, targetY, size, speed, rotationRate, movementHorizontal) {
+    constructor(image, x, y, targetX, targetY, size, speed, rotationRate) {
 
         super(32); 
 
@@ -15,6 +15,9 @@ class Asteroid extends GameObject2 {
 
         this.vx = 0;
         this.vy = 0;
+        this.bounceTime = 0.1;
+        this.currentBounceTime = 0.0;
+        this.bouncing = false;
         this.target = new Transform();
         this.target.x = targetX;
         this.target.y = targetY;
@@ -27,11 +30,9 @@ class Asteroid extends GameObject2 {
         this.rotationDirection = Math.random() >= 0.5;
 		this.rotationRate = rotationRate;
 
-        this.movementHorizontal = movementHorizontal;
-
         this.isActive = true;
         this.alpha = 100;
-        this.alphaRemovePerSecond = 400.0;
+        this.alphaRemovePerSecond = 1000.0;
     }
 
     calculateTargetVector() {
@@ -50,11 +51,37 @@ class Asteroid extends GameObject2 {
 
         this.vx = this.targetVector.x * this.targetVectorMultiplayer;
 		this.vy = this.targetVector.y * this.targetVectorMultiplayer;
+
+        if(this.vx > 0) this.rortationDirection = 1;
+		else this.rortationDirection = -1;
     }
 
     takeDamage() {
 
+        if(!this.isActive) return;
         this.isActive = false;
+
+        let explosion = new Explosion(this.transform.x, this.transform.y, this.transform.width);
+        _explosionArrray.add(explosion);
+        explosion.start();
+    }
+
+    bounce() {
+
+        if(this.bouncing) {
+                        
+            this.currentBounceTime = 0.0;
+            return;
+        }
+
+        this.vx = -1 * this.vx;
+        this.vy = -1 * this.vy;
+        
+		if(this.vx > 0) this.rortationDirection = 1;
+		else this.rortationDirection = -1;
+
+        this.bouncing = true;
+        this.currentBounceTime = 0.0;
     }
 
     destroy() {
@@ -64,6 +91,15 @@ class Asteroid extends GameObject2 {
     }
 
     updateState() {
+
+        if(this.bouncing) {
+            this.currentBounceTime += this.deltaTime;
+
+            if(this.currentBounceTime >= this.bounceTime) {
+                this.bouncing = false;
+                this.currentBounceTime = 0.0;
+            }
+        }
 		
 		this.transform.addRotation(this.rotationRate * this.deltaTime * (this.rotationDirection ? 1 : -1));
         

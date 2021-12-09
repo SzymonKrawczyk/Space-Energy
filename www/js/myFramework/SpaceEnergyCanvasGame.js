@@ -30,6 +30,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         _energyArray.start();
         _energyManager.start();
 
+        _explosionArrray.start();
+
         _enemy.start();
         _player.start();
 
@@ -146,6 +148,8 @@ class SpaceEnergyCanvasGame extends CanvasGame {
         _asteroidArray.render();
         _energyArray.render();
 
+        _explosionArrray.render();
+
         _enemy.render();
         _player.render();
 
@@ -244,6 +248,47 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 }
             }
 
+            // asteroids & asteroids
+            for (let i = 0; i < _asteroidArray.arr.length; ++i) {
+
+                let currentAsteroid = _asteroidArray.getObjectAt(i);
+
+                if(currentAsteroid == null || typeof(currentAsteroid) == 'undefined') {
+                    _asteroidArray.remove(currentAsteroid);
+                    --i;
+                    continue;
+                }
+
+                if(!currentAsteroid.isActive) continue;
+
+                for (let j = 0; j < _asteroidArray.arr.length; ++j) {
+
+                    let otherAsteroid = _asteroidArray.getObjectAt(j);
+    
+                    if(otherAsteroid == null || typeof(otherAsteroid) == 'undefined') {
+                        _asteroidArray.remove(otherAsteroid);
+                        --j;
+                        continue;
+                    }
+
+                    if(currentAsteroid == otherAsteroid) continue;    
+                    if(!otherAsteroid.isActive) continue;
+
+    
+                    const distanceToAsteroid = currentAsteroid.transform.distanceToTransform2(otherAsteroid.transform);
+                    const minimumDistanceToAsteroid = Math.pow(currentAsteroid.transform.width / 2.0 + otherAsteroid.transform.width * otherAsteroid.hitboxMultiplayer / 2.0, 2.0);
+    
+                    // hit
+                    if (distanceToAsteroid <= minimumDistanceToAsteroid) {
+                        
+                        currentAsteroid.bounce();
+                        otherAsteroid.bounce();
+    
+                        continue;
+                    }
+                }
+            }
+
             // asteroids & enemy
             for (let i = 0; i < _asteroidArray.arr.length; ++i) {
 
@@ -264,6 +309,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 if (distanceToEnemy <= minimumDistanceToEnemy) {
                     
                     currentAsteroid.takeDamage();
+                    //currentAsteroid.bounce();
                     //_asteroidArray.remove(currentAsteroid);
 
                     continue;
@@ -281,15 +327,18 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     continue;
                 }
 
-                let offScreen = false;
-                if(currentAsteroid.movementHorizontal) {
+                const top = canvas.heightStart - 400;
+                const bottom = canvas.height + 400;
+                const right = canvas.width + 400;
+                const left = 0 - 400;
 
-                    if (Math.abs(currentAsteroid.transform.x - currentAsteroid.target.x) <= 25) offScreen = true;
+                const offScreen = (
+                       Math.abs(currentAsteroid.transform.x - right)  < 50 
+                    || Math.abs(currentAsteroid.transform.x - left)   < 50 
+                    || Math.abs(currentAsteroid.transform.y - top)    < 50 
+                    || Math.abs(currentAsteroid.transform.y - bottom) < 50
+                );
 
-                } else {
-
-                    if (Math.abs(currentAsteroid.transform.y - currentAsteroid.target.y) <= 25) offScreen = true;
-                }
 
                 // off-screen
                 if (offScreen) {
@@ -297,7 +346,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     currentAsteroid.destroy();
                     _asteroidArray.remove(currentAsteroid);
 
-                    //console.log("Asteroid off-screen!");
+                    console.log("Asteroid off-screen!");
                     //console.log(_asteroidArray);
 
                     continue;
@@ -340,15 +389,17 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     continue;
                 }
 
-                let offScreen = false;
-                if(currentEnergy.movementHorizontal) {
+                const top = canvas.heightStart - 400;
+                const bottom = canvas.height + 400;
+                const right = canvas.width + 400;
+                const left = 0 - 400;
 
-                    if (Math.abs(currentEnergy.transform.x - currentEnergy.target.x) <= 25) offScreen = true;
-
-                } else {
-
-                    if (Math.abs(currentEnergy.transform.y - currentEnergy.target.y) <= 25) offScreen = true;
-                }
+                const offScreen = (
+                       Math.abs(currentEnergy.transform.x - right)  < 50 
+                    || Math.abs(currentEnergy.transform.x - left)   < 50 
+                    || Math.abs(currentEnergy.transform.y - top)    < 50 
+                    || Math.abs(currentEnergy.transform.y - bottom) < 50
+                );
 
                 // off-screen
                 if (offScreen) {
@@ -357,7 +408,6 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     _energyArray.remove(currentEnergy);
 
                     //console.log("Energy off-screen!");
-                    //console.log(_energyArray);
 
                     continue;
                 }

@@ -20,10 +20,15 @@ class DifficultyManager extends GameObject2 {
         console.log(`Phase: ${this.currentPhase}`);
         console.log(_GLOBAL.multiplayers);
         
-        _GLOBAL.multiplayers.asteroidSpawn = 1.0;
-        _GLOBAL.multiplayers.energySpawn   = 1.0;
-        _GLOBAL.multiplayers.energyDrain   = 1.0;
-        _GLOBAL.multiplayers.enemyWaiting  = 1.0;
+        this.setDifficulty(1.0, 1.0, 1.0, 1.0);
+    }
+
+    setDifficulty(asteroidSpawn, energySpawn, energyDrain, enemyWaiting) {
+
+        _GLOBAL.multiplayers.asteroidSpawn = asteroidSpawn;
+        _GLOBAL.multiplayers.energySpawn   = energySpawn;
+        _GLOBAL.multiplayers.energyDrain   = energyDrain;
+        _GLOBAL.multiplayers.enemyWaiting  = enemyWaiting;
     }
 
     updateState() {
@@ -38,12 +43,9 @@ class DifficultyManager extends GameObject2 {
 
                     this.currentPhase = 180;
                     console.log(`Phase: ${this.currentPhase}`);
-                    console.log(_GLOBAL.multiplayers);
 
-                    _GLOBAL.multiplayers.asteroidSpawn = 2.0;
-                    _GLOBAL.multiplayers.energySpawn   = 2.0;
-                    _GLOBAL.multiplayers.energyDrain   = 2.0;
-                    _GLOBAL.multiplayers.enemyWaiting  = 0.2;
+                    this.setDifficulty(2.5, 2.0, 2.0, 0.2);
+                    console.log(_GLOBAL.multiplayers);
                 }
                  
             } else if(this.currentTime >= 120) {
@@ -52,12 +54,9 @@ class DifficultyManager extends GameObject2 {
 
                     this.currentPhase = 120;
                     console.log(`Phase: ${this.currentPhase}`);
-                    console.log(_GLOBAL.multiplayers);
 
-                    _GLOBAL.multiplayers.asteroidSpawn = 1.85;
-                    _GLOBAL.multiplayers.energySpawn   = 1.7;
-                    _GLOBAL.multiplayers.energyDrain   = 1.7;
-                    _GLOBAL.multiplayers.enemyWaiting  = 0.4;
+                    this.setDifficulty(1.9, 1.75, 1.75, 0.35);
+                    console.log(_GLOBAL.multiplayers);
                 }
                  
             } else if(this.currentTime >= 90) {
@@ -66,12 +65,9 @@ class DifficultyManager extends GameObject2 {
 
                     this.currentPhase = 90;
                     console.log(`Phase: ${this.currentPhase}`);
-                    console.log(_GLOBAL.multiplayers);
 
-                    _GLOBAL.multiplayers.asteroidSpawn = 1.7;
-                    _GLOBAL.multiplayers.energySpawn   = 1.5;
-                    _GLOBAL.multiplayers.energyDrain   = 1.5;
-                    _GLOBAL.multiplayers.enemyWaiting  = 0.5;
+                    this.setDifficulty(1.75, 1.6, 1.6, 0.5);
+                    console.log(_GLOBAL.multiplayers);
                 }
                  
             } else if(this.currentTime >= 60) {
@@ -80,12 +76,9 @@ class DifficultyManager extends GameObject2 {
 
                     this.currentPhase = 60;
                     console.log(`Phase: ${this.currentPhase}`);
-                    console.log(_GLOBAL.multiplayers);
 
-                    _GLOBAL.multiplayers.asteroidSpawn = 1.5;
-                    _GLOBAL.multiplayers.energySpawn   = 1.3;
-                    _GLOBAL.multiplayers.energyDrain   = 1.3;
-                    _GLOBAL.multiplayers.enemyWaiting  = 0.7;
+                    this.setDifficulty(1.6, 1.4, 1.4, 0.65);
+                    console.log(_GLOBAL.multiplayers);
                 }
                  
             } else if(this.currentTime >= 30) {
@@ -94,12 +87,9 @@ class DifficultyManager extends GameObject2 {
 
                     this.currentPhase = 30;
                     console.log(`Phase: ${this.currentPhase}`);
-                    console.log(_GLOBAL.multiplayers);
 
-                    _GLOBAL.multiplayers.asteroidSpawn = 1.5;
-                    _GLOBAL.multiplayers.energySpawn   = 1.1;
-                    _GLOBAL.multiplayers.energyDrain   = 1.1;
-                    _GLOBAL.multiplayers.enemyWaiting  = 0.85;
+                    this.setDifficulty(1.5, 1.2, 1.2, 0.8);
+                    console.log(_GLOBAL.multiplayers);
                 }
             }
         }
