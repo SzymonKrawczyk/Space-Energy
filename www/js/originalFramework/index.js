@@ -52,8 +52,8 @@ function onAllAssetsLoaded()
     // responsive canvas
     const resize = () => {
     
-        let myWidth  = window.innerWidth;
-        let myHeight = window.innerHeight;
+        let myWidth  = Math.min(screen.width, screen.availWidth, window.innerWidth);
+        let myHeight = Math.min(screen.height, screen.availHeight, window.innerHeight);
 
         if (myWidth / canvas.width > myHeight / canvas.height) {
 
