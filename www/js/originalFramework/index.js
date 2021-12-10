@@ -44,8 +44,31 @@ function onAllAssetsLoaded()
     /* This code never changes                        */
     canvas = document.getElementById("gameCanvas");
     ctx = canvas.getContext("2d");
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+
+    // const game ratio
+    canvas.width = 400;
+    canvas.height = 700;
+
+    // responsive canvas
+    const resize = () => {
+    
+        let myWidth  = window.innerWidth;
+        let myHeight = window.innerHeight;
+
+        if (myWidth / canvas.width > myHeight / canvas.height) {
+
+            myWidth = (myHeight * canvas.width) / canvas.height;
+
+        } else {
+
+            myHeight = (myWidth * canvas.height) / canvas.width;
+        }
+
+        canvas.style.width = myWidth + "px";
+        canvas.style.height = myHeight + "px";
+        requestAnimationFrame(resize);
+    }
+    resize();
 
     playGame(); // Each game will include its own .js file, which will hold the game's playGame() function
 }
@@ -64,3 +87,4 @@ Math.getRandomIntInclusive = (min, max) => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
+

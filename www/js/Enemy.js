@@ -32,8 +32,8 @@ class Enemy extends GameObject2 {
         this.targetVectorMultiplayer = 8;
         this.state = "Waiting"; // "Calculating", "Moving"
         this.currentStateTimer = 0.0;
-        this.stateTimerCalculating = 1.5;
-        this.stateTimerMoving = 1.0;
+        this.stateTimerCalculating = 1.3;
+        this.stateTimerMoving = 0.8;
 
 		// Shield
 		this.image_Shield = image_Shield;

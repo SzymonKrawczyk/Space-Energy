@@ -43,10 +43,10 @@ class Player extends GameObject2 {
 		this.currentBlinkingTimer = 0.0;
 
 		// Energy
-		this.energyMax = 200.0;
+		this.energyMax = 250.0;
 		this.energy = this.energyMax;
 		this.energyUsagePerSecond = 6.0;
-		this.energyUsagePerShield = 20.0;
+		this.energyUsagePerShield = 25.0;
 	}
 
 	reset() {		

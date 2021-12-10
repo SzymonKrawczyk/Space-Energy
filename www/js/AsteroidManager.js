@@ -10,7 +10,7 @@ class AsteroidManager extends GameObject2 {
         this.image_warning = image_warning;
 
         this.sizeLow = 40;
-        this.sizeRange = 25;
+        this.sizeRange = 30;
 
         this.speedLow = 15;
         this.speedRange = 30;
@@ -25,7 +25,7 @@ class AsteroidManager extends GameObject2 {
         this.spawnWidthLength  = canvas.width;
         
         this.isActive = false;
-        this.spawnInterval = 3.0;
+        this.spawnInterval = 2.0;
         this.currentSpawnTimer = 0.0;
 
         this.warningArray = new GameObjectArray();
