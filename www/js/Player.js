@@ -109,8 +109,8 @@ class Player extends GameObject2 {
 
 		if(this.energy <= 0) return;
 
-		this.vx = x / 5.0;
-		this.vy = y / 5.0;
+		this.vx = x / 4.0;
+		this.vy = y / 4.0;
 
 		this.rotationRate = this.rotationRateMin + Math.max(Math.abs(x), Math.abs(y)) * 10;
 		if(this.rotationRate >= 360) this.rotationRate = 360;
