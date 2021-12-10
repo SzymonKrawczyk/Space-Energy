@@ -12,7 +12,6 @@ class SoundManager extends GameObject {
         this.sound_background.volume = 0.5;
 
         this.backgroundStarted = false;
-
     }    
 
     startBackground() {
@@ -23,7 +22,7 @@ class SoundManager extends GameObject {
         this.sound_background.currentTime = 0;
         this.sound_background.play();
 
-        /* ensure that the sound loops continuously */
+        /* loop */
         this.sound_background.addEventListener('ended', () =>  {
 
             this.sound_background.currentTime = 0;

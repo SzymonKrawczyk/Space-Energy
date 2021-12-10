@@ -1,12 +1,14 @@
 // Author: Szymon Krawczyk
 
+// Warning to indicate asteroid spawn
+
 class AsteroidSpawner extends GameObject2 {
 
-    constructor(image, x, y, size, asteroid, TTL, manager) {
+    constructor(x, y, size, asteroid, TTL, manager) {
 
         super(8); 
 
-        this.image = image;
+        this.image = image_asteroidWarning;
         this.transform.width = size;
         this.transform.height = size;
         this.transform.x = x;
@@ -36,9 +38,7 @@ class AsteroidSpawner extends GameObject2 {
             this.currentTime = 0;
             this.asteroid.start();
             this.destroy();
-            //console.log(this.manager.warningArray);
             this.manager.warningArray.remove(this);
-            //console.log(this.manager.warningArray);
         }
     }
 

@@ -64,8 +64,6 @@ class Enemy extends GameObject2 {
     calculateTargetVector() {
 
         // vector to target
-        //console.log(this.transform);
-        //console.log(this.target.transform);
         this.targetVector = {
 
               x: this.target.transform.x - this.transform.x
@@ -79,9 +77,10 @@ class Enemy extends GameObject2 {
 
         this.vx = this.targetVector.x * this.targetVectorMultiplayer;
 		this.vy = this.targetVector.y * this.targetVectorMultiplayer;
-		//console.log(this.vx);
-		//console.log(this.vy);
 
+        // NaN fix
+        if(!this.vx) this.vx = 0.0;
+        if(!this.vy) this.vy = 0.0;
         
 		if(this.vx > 0) this.rortationDirection = 1;
 		else this.rortationDirection = -1;
@@ -123,21 +122,24 @@ class Enemy extends GameObject2 {
         this.transform.x += this.vx * this.speed * this.deltaTime;
         if (this.transform.x > canvas.width - this.transform.width / 2) {
 			
+            
             this.transform.x = canvas.width - this.transform.width / 2;
-			
+
         } else if (this.transform.x < 0 + this.transform.width / 2) {
 			
 			this.transform.x = 0 + this.transform.width / 2;
-		}		
+		}	
+
 		this.transform.y += this.vy * this.speed * this.deltaTime;
         if (this.transform.y > canvas.height - this.transform.width / 2) {
 			
+            
             this.transform.y = canvas.height - this.transform.width / 2;
-			
+
         } else if (this.transform.y < canvas.heightStart + this.transform.width / 2) {
 			
 			this.transform.y = canvas.heightStart + this.transform.width / 2;
-		}		
+		}
     }
 
     render() {

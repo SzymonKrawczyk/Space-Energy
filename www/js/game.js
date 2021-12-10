@@ -6,16 +6,31 @@
 // Author: Szymon Krawczyk
 
 /******************** Declare game specific global data and functions *****************/
-/* images must be declared as global, so that they will load before the game starts   */
+/* Declared as global, so that they will load before the game starts */
 
+
+/* Audio */
+let sound_shield_up = new Audio();
+sound_shield_up.src = "audio/spaceshooter/Bonus/sfx_shieldUp.ogg";
+let sound_shield_down = new Audio();
+
+sound_shield_down.src = "audio/spaceshooter/Bonus/sfx_shieldDown.ogg";
+let sound_explosion = new Audio();
+sound_explosion.src = "audio/sci-fi-sounds/Audio/explosionCrunch_000.ogg";
+
+let sound_energy = new Audio();
+sound_energy.src = "audio/spaceshooter/Bonus/sfx_zap.ogg";
+
+let sound_background = new Audio();
+sound_background.src = "audio/KevinMcLeod/PhantomFromSpace/Phantom_from_Space.mp3";
+let sound_gameEnd = new Audio();
+sound_gameEnd.src = "audio/spaceshooter/Bonus/sfx_lose.ogg";
+
+/* Images */
 let image_spaceShipPlayer = new Image();
 image_spaceShipPlayer.src = "img/spaceshooter/PNG/ufoBlue.png";
 let image_shield = new Image();
 image_shield.src = "img/myAssets/shield2.png";
-let sound_shield_up = new Audio();
-sound_shield_up.src = "audio/spaceshooter/Bonus/sfx_shieldUp.ogg";
-let sound_shield_down = new Audio();
-sound_shield_down.src = "audio/spaceshooter/Bonus/sfx_shieldDown.ogg";
 
 let image_spaceShipEnemy = new Image();
 image_spaceShipEnemy.src = "img/spaceshooter/PNG/ufoRed.png";
@@ -50,21 +65,13 @@ image_asteroidWarning.src = "img/myAssets/warning.png";
 let image_explosion = new Image();
 image_explosion.src = "img/other/explosionSheet.png";
 
-let sound_explosion = new Audio();
-sound_explosion.src = "audio/sci-fi-sounds/Audio/explosionCrunch_000.ogg";
-
-
 let image_energy = new Image();
 //image_energy.src = "img/myAssets/energy.png";
 image_energy.src = "img/spaceshooter/PNG/Lasers/laserBlue11.png";
-let sound_energy = new Audio();
-sound_energy.src = "audio/spaceshooter/Bonus/sfx_zap.ogg";
 
-let sound_background = new Audio();
-sound_background.src = "audio/KevinMcLeod/PhantomFromSpace/Phantom_from_Space.mp3";
-let sound_gameEnd = new Audio();
-sound_gameEnd.src = "audio/spaceshooter/Bonus/sfx_lose.ogg";
 
+
+/* global game variables */
 let _GLOBAL = {
 
       gameState: "Loading"
@@ -77,6 +84,7 @@ let _GLOBAL = {
     }
 }
 
+/* global game objects */
 _asteroidArray = null;
 _asteroidManager = null;
 _explosionArrray = null;
@@ -108,7 +116,7 @@ function playGame() {
 
 
     _asteroidArray = new GameObjectArray();
-    _asteroidManager = new AsteroidManager(image_asteroids_array, image_asteroidWarning);
+    _asteroidManager = new AsteroidManager(image_asteroids_array);
 
     _explosionArrray = new GameObjectArray();
     
@@ -178,7 +186,7 @@ function playGame() {
         }
         else if (e.keyCode === 38) // up
         {
-            _player.setOrientation(0, -45);
+            _player.setOrientation(0.00001, -45);
         }
         else if (e.keyCode === 39) // right
         {
@@ -186,8 +194,7 @@ function playGame() {
         }
         else if (e.keyCode === 40) // down
         {
-            _player.setOrientation(0, 45);
+            _player.setOrientation(-0.00001, 45);
         } 
     });
-
 }

@@ -26,9 +26,6 @@ class Transform {
 			ctx.translate(this.x, this.y);
 			ctx.rotate(Math.radians(this.rotation));
 			ctx.translate(-this.x, -this.y);
-				
-            //ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-        //ctx.restore();
     }
 
     endRotation() {

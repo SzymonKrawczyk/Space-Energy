@@ -1,13 +1,16 @@
 // Author: Szymon Krawczyk
 
+
+// Spawns Asteroids randomly some distance away from edges of the screen
+//  longer screen side = higher probability of spawning there
+
 class AsteroidManager extends GameObject2 {
 
-    constructor(image_array_asteroids, image_warning) {
+    constructor(image_array_asteroids) {
 
         super(4); 
         
         this.image_array_asteroids = image_array_asteroids;
-        this.image_warning = image_warning;
 
         this.sizeLow = 40;
         this.sizeRange = 30;
@@ -139,7 +142,7 @@ class AsteroidManager extends GameObject2 {
 
                 let newAsteroid = new Asteroid(this.image_array_asteroids[rImage], tempX, tempY, tempTargetX, tempTargetY, tempSize, tempSpeed, tempRotation);
 
-                let newAsteroid_warning = new AsteroidSpawner(this.image_warning, tempX_w, tempY_w, this.warningSize, newAsteroid, this.warningTTL, this);
+                let newAsteroid_warning = new AsteroidSpawner(tempX_w, tempY_w, this.warningSize, newAsteroid, this.warningTTL, this);
                 newAsteroid_warning.start();
                 this.warningArray.add(newAsteroid_warning);
                 _asteroidArray.add(newAsteroid);

@@ -45,7 +45,7 @@ class Player extends GameObject2 {
 		// Energy
 		this.energyMax = 250.0;
 		this.energy = this.energyMax;
-		this.energyUsagePerSecond = 6.0;
+		this.energyUsagePerSecond = 6.5;
 		this.energyUsagePerShield = 25.0;
 	}
 

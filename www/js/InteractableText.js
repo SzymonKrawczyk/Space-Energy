@@ -37,10 +37,5 @@ class InteractableText extends GameObject {
             tempY += height;
         }
         ctx.fillText(this.text, tempX, tempY);
-
-        //console.log(this.text);
-        //console.log(ctx.measureText(this.text));
-        //console.log(tempX);
-        //console.log(tempY);
     }
 }

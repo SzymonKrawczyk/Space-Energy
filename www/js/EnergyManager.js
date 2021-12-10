@@ -1,5 +1,8 @@
 // Author: Szymon Krawczyk
 
+// Spawns Energy randomly some distance away from edges of the screen
+//  longer screen side = higher probability of spawning there
+
 class EnergyManager extends GameObject2 {
 
     constructor(image, sound) {
