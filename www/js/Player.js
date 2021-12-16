@@ -8,20 +8,34 @@ class Player extends GameObject2 {
 		super(64);
 		
 		// Image
-		this.image_Ship = image_Ship;
+		//this.image_Ship = image_Ship;
+		this.spriteSheet = image_Ship;
+        this.spriteCount = 4;
+        this.spriteInterval = 0.5;
+        this.currentSpriteTimer = 0.0;
+
+        const spriteSheetWidth = 182;
+        const spriteSheetHeight = 182;
+        this.columns = 2;
+        this.rows = 2;
+        this.singleSpriteWidth = spriteSheetWidth / this.columns;
+        this.singleSpriteHeight = spriteSheetHeight / this.rows;
+        
+        this.currentRow = 0;
+        this.currentColumn = 0;
 
 		// Sounds
 		this.sound_shield_up = sound_shield_up;
 		this.sound_shield_down = sound_shield_down;
 
 		// Position, Movement
-		this.transform.width = 48;
-		this.transform.height = 48;
+		this.transform.width = 54;
+		this.transform.height = 54;
 
 		this.transform.x = canvas.width / 2.0;
 		this.transform.y = canvas.height - this.transform.height;
 
-		this.rotationRateMin = 180;
+		this.rotationRateMin = 45;
 		this.rotationRate = this.rotationRateMin;
 		this.rortationDirection = 1;
 		
@@ -112,7 +126,7 @@ class Player extends GameObject2 {
 		this.vx = x / 4.0;
 		this.vy = y / 4.0;
 
-		this.rotationRate = this.rotationRateMin + Math.max(Math.abs(x), Math.abs(y)) * 10;
+		this.rotationRate = this.rotationRateMin + Math.max(Math.abs(x), Math.abs(y)) * 2;
 		if(this.rotationRate >= 360) this.rotationRate = 360;
 
 		if(this.vx > 0) this.rortationDirection = 1;
@@ -120,6 +134,31 @@ class Player extends GameObject2 {
 	}
 	
 	updateState() {
+
+		//image
+		this.currentSpriteTimer += this.deltaTime;
+
+        if(this.currentSpriteTimer >= this.spriteInterval) {
+
+            this.currentSpriteTimer = 0.0;
+
+            let currentSprite = this.currentRow * this.columns + this.currentColumn;
+
+            if (currentSprite >= this.spriteCount - 1) {
+
+                this.currentColumn = 0;
+                this.currentRow = 0;
+
+            } else {				
+
+				this.currentColumn++;
+				if (this.currentColumn >= this.columns) {
+
+					this.currentColumn = 0;
+					this.currentRow++;
+				}   
+			}   
+        }   
 
 		//rotation
 		this.transform.addRotation(this.rotationRate * this.rortationDirection * this.deltaTime);		
@@ -193,13 +232,25 @@ class Player extends GameObject2 {
     render() {
 		
 		this.transform.startRotation();
-        	ctx.drawImage(
-				this.image_Ship
-				, this.transform.x - this.transform.width / 2
-				, this.transform.y - this.transform.width / 2
-				, this.transform.width
-				, this.transform.width
+
+			ctx.drawImage(
+				this.spriteSheet, 
+
+				this.currentColumn * this.singleSpriteWidth, 
+				this.currentRow * this.singleSpriteHeight, 
+
+				this.singleSpriteWidth, this.singleSpriteHeight, 
+
+				this.transform.x - this.transform.width / 2, this.transform.y - this.transform.height / 2, 
+				this.transform.width, this.transform.height
 			);
+        	// ctx.drawImage(
+			// 	this.image_Ship
+			// 	, this.transform.x - this.transform.width / 2
+			// 	, this.transform.y - this.transform.width / 2
+			// 	, this.transform.width
+			// 	, this.transform.width
+			// );
 
 			if(this.isShieldVisible) {
 

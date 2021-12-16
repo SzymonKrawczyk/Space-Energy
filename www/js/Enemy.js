@@ -2,7 +2,7 @@
 
 class Enemy extends GameObject2 {
 
-	constructor (image_Ship, image_Shield, target){
+	constructor (image_Ship,/* image_Shield,*/ target){
 		
 		// Init
 		super(64);
@@ -11,13 +11,13 @@ class Enemy extends GameObject2 {
 		this.image_Ship = image_Ship;
 
 		// Position, Movement
-		this.transform.width = 48;
-		this.transform.height = 48;
+		this.transform.width = 64;
+		this.transform.height = 64;
 
 		this.transform.x = canvas.width / 2.0;
 		this.transform.y = canvas.heightStart + this.transform.height;
 
-		this.rotationRate = 270;		
+		this.rotationRate = 360;		
 		this.rortationDirection = 1;
 
         this.speed = 40;
@@ -36,8 +36,8 @@ class Enemy extends GameObject2 {
         this.stateTimerMoving = 0.8;
 
 		// Shield
-		this.image_Shield = image_Shield;
-		this.shieldSizeMultiplayer = 1.4;
+		//this.image_Shield = image_Shield;
+		//this.shieldSizeMultiplayer = 1.4;
 	}
 
 	reset() {		
@@ -153,13 +153,13 @@ class Enemy extends GameObject2 {
 				, this.transform.width
 			);
 
-			ctx.drawImage(
-				  this.image_Shield
-				, this.transform.x - this.transform.width * this.shieldSizeMultiplayer / 2
-				, this.transform.y - this.transform.width * this.shieldSizeMultiplayer / 2
-				, this.transform.width * this.shieldSizeMultiplayer
-				, this.transform.width * this.shieldSizeMultiplayer
-            );
+			// ctx.drawImage(
+			// 	  this.image_Shield
+			// 	, this.transform.x - this.transform.width * this.shieldSizeMultiplayer / 2
+			// 	, this.transform.y - this.transform.width * this.shieldSizeMultiplayer / 2
+			// 	, this.transform.width * this.shieldSizeMultiplayer
+			// 	, this.transform.width * this.shieldSizeMultiplayer
+            // );
 		this.transform.endRotation();
     }
 }

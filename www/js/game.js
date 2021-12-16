@@ -28,17 +28,20 @@ sound_gameEnd.src = "audio/spaceshooter/Bonus/sfx_lose.ogg";
 
 /* Images */
 let image_spaceShipPlayer = new Image();
-image_spaceShipPlayer.src = "img/spaceshooter/PNG/ufoBlue.png";
+//image_spaceShipPlayer.src = "img/spaceshooter/PNG/ufoBlue.png";
+image_spaceShipPlayer.src = "img/myAssets/ufoBlueSheet3.png";
 let image_shield = new Image();
 image_shield.src = "img/myAssets/shield2.png";
 
 let image_spaceShipEnemy = new Image();
-image_spaceShipEnemy.src = "img/spaceshooter/PNG/ufoRed.png";
-let image_shield_Enemy = new Image();
-image_shield_Enemy.src = "img/myAssets/shieldRed3.png";
+image_spaceShipEnemy.src = "img/myAssets/enemy2.png";
+//image_spaceShipEnemy.src = "img/spaceshooter/PNG/ufoRed.png";
+//let image_shield_Enemy = new Image();
+//image_shield_Enemy.src = "img/myAssets/shieldRed3.png";
 
 let image_bg = new Image();
-image_bg.src = "img/spaceshooter/Backgrounds/black.png";
+image_bg.src = "img/myAssets/black2.png";
+//image_bg.src = "img/spaceshooter/Backgrounds/black.png";
 
 let image_stats_bg = new Image();
 image_stats_bg.src = "img/spaceshooter/Backgrounds/darkPurple.png";
@@ -65,9 +68,14 @@ image_asteroidWarning.src = "img/myAssets/warning.png";
 let image_explosion = new Image();
 image_explosion.src = "img/other/explosionSheet.png";
 
-let image_energy = new Image();
+//let image_energy = new Image();
 //image_energy.src = "img/myAssets/energy.png";
-image_energy.src = "img/spaceshooter/PNG/Lasers/laserBlue11.png";
+//image_energy.src = "img/spaceshooter/PNG/Lasers/laserBlue10.png";
+let image_energy_array = [];
+image_energy_array[0] = new Image();
+image_energy_array[0].src = "img/spaceshooter/PNG/Lasers/laserBlue10.png";
+image_energy_array[1] = new Image();
+image_energy_array[1].src = "img/spaceshooter/PNG/Lasers/laserGreen16.png";
 
 
 
@@ -110,9 +118,9 @@ function playGame() {
 
     // moving background
     // gameObjects - objects that never reset (background)
-    gameObjects.push(new MovingBackground(image_bg, 256, 256,   0,     -15, -5, 32));
-    gameObjects.push(new MovingBackground(image_bg, 256, 256, 256 - 2, -15, -5, 32));
-    gameObjects.push(new MovingBackground(image_bg, 256, 256, 512 - 4, -15, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256,   0,     -10, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256, 256 - 2, -10, -5, 32));
+    gameObjects.push(new MovingBackground(image_bg, 256, 256, 512 - 4, -10, -5, 32));
 
 
     _asteroidArray = new GameObjectArray();
@@ -122,12 +130,12 @@ function playGame() {
     
 
     _energyArray = new GameObjectArray();
-    _energyManager = new EnergyManager(image_energy, sound_energy);
+    _energyManager = new EnergyManager(image_energy_array, sound_energy);
 
 
     _player = new Player(image_spaceShipPlayer, image_shield, sound_shield_up, sound_shield_down);
 
-    _enemy = new Enemy(image_spaceShipEnemy, image_shield_Enemy, _player);
+    _enemy = new Enemy(image_spaceShipEnemy,/* image_shield_Enemy,*/ _player);
 
     _difficultyManager = new DifficultyManager();
 

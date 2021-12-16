@@ -15,9 +15,11 @@ class Asteroid extends GameObject2 {
 
         this.vx = 0;
         this.vy = 0;
-        this.bounceTime = 0.1;
+        
+        this.bounceTime = 0.05;
         this.currentBounceTime = 0.0;
         this.bouncing = false;
+
         this.target = new Transform();
         this.target.x = targetX;
         this.target.y = targetY;
@@ -74,8 +76,8 @@ class Asteroid extends GameObject2 {
             return;
         }
 
-        this.vx = -1 * this.vx;
-        this.vy = -1 * this.vy;
+        this.vy *= -1;
+        this.vx *= -1;        
         
 		if(this.vx > 0) this.rortationDirection = 1;
 		else this.rortationDirection = -1;

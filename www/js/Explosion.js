@@ -14,7 +14,6 @@ class Explosion extends GameObject2 {
         this.TTL = 1.0;
         
         this.spriteSheet = image_explosion; //global image
-        console.log(this.spriteSheet);
         this.spriteCount = 14;
         this.spriteInterval = this.TTL / this.spriteCount;
         this.currentSpriteTimer = 0.0;

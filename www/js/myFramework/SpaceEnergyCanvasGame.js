@@ -189,7 +189,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 return;
             }
 
-            // enemy & player
+            // enemy (nothing) & player (take damage)
             {
                 const distanceToPlayer = _player.transform.distanceToTransform2(_enemy.transform);
                 const minimumDistanceToPlayer = Math.pow(_player.transform.width / 2.0 + _enemy.transform.width * _enemy.hitboxMultiplayer / 2.0, 2.0);
@@ -209,7 +209,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 }
             }
 
-            // asteroids & player
+            // asteroids (destroy) & player (take damage)
             for (let i = 0; i < _asteroidArray.arr.length; ++i) {
 
                 let currentAsteroid = _asteroidArray.getObjectAt(i);
@@ -245,7 +245,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 }
             }
 
-            // asteroids & asteroids
+            // asteroids (bounce) & asteroids (bounce)
             for (let i = 0; i < _asteroidArray.arr.length; ++i) {
 
                 let currentAsteroid = _asteroidArray.getObjectAt(i);
@@ -286,7 +286,43 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 }
             }
 
-            // asteroids & enemy
+            // asteroids (nothing) & energy (bounce)
+            for (let i = 0; i < _asteroidArray.arr.length; ++i) {
+
+                let currentAsteroid = _asteroidArray.getObjectAt(i);
+
+                if(currentAsteroid == null || typeof(currentAsteroid) == 'undefined') {
+                    _asteroidArray.remove(currentAsteroid);
+                    --i;
+                    continue;
+                }
+
+                if(!currentAsteroid.isActive) continue;
+
+                for (let j = 0; j < _energyArray.arr.length; ++j) {
+
+                    let currentEnergy = _energyArray.getObjectAt(j);
+    
+                    if(currentEnergy == null || typeof(currentEnergy) == 'undefined') {
+                        _energyArray.remove(currentEnergy);
+                        --j;
+                        continue;
+                    }
+    
+                    const distance = currentAsteroid.transform.distanceToTransform2(currentEnergy.transform);
+                    const minimumDistance = Math.pow(currentAsteroid.transform.width / 2.0 + currentEnergy.transform.width * currentEnergy.hitboxMultiplayer / 2.0, 2.0);
+    
+                    // hit
+                    if (distance <= minimumDistance) {
+                        
+                        currentEnergy.bounce();
+    
+                        continue;
+                    }
+                }
+            }
+
+            // asteroids (destroy) & enemy (nothing)
             for (let i = 0; i < _asteroidArray.arr.length; ++i) {
 
                 let currentAsteroid = _asteroidArray.getObjectAt(i);
@@ -343,14 +379,14 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     currentAsteroid.destroy();
                     _asteroidArray.remove(currentAsteroid);
 
-                    console.log("Asteroid off-screen!");
+                    //console.log("Asteroid off-screen!");
                     //console.log(_asteroidArray);
 
                     continue;
                 }
             }
 
-            // energy & player
+            // energy (destroy) & player (collect)
             for (let i = 0; i < _energyArray.arr.length; ++i) {
 
                 let currentEnergy = _energyArray.getObjectAt(i);
@@ -372,6 +408,44 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                     _energyArray.remove(currentEnergy);
 
                     continue;
+                }
+            }
+
+            // energy (bounce) & energy (bounce)
+            for (let i = 0; i < _energyArray.arr.length; ++i) {
+
+                let currentEnergy = _energyArray.getObjectAt(i);
+
+                if(currentEnergy == null || typeof(currentEnergy) == 'undefined') {
+                    _energyArray.remove(currentEnergy);
+                    --i;
+                    continue;
+                }
+
+                for (let j = 0; j < _energyArray.arr.length; ++j) {
+
+                    let otherEnergy = _energyArray.getObjectAt(j);
+    
+                    if(otherEnergy == null || typeof(otherEnergy) == 'undefined') {
+                        _energyArray.remove(otherEnergy);
+                        --j;
+                        continue;
+                    }
+
+                    if(currentEnergy == otherEnergy) continue;  
+
+    
+                    const distanceToEnergy = currentEnergy.transform.distanceToTransform2(otherEnergy.transform);
+                    const minimumDistanceToEnergy = Math.pow(currentEnergy.transform.width / 2.0 + otherEnergy.transform.width * otherEnergy.hitboxMultiplayer / 2.0, 2.0);
+    
+                    // hit
+                    if (distanceToEnergy <= minimumDistanceToEnergy) {
+                        
+                        currentEnergy.bounce();
+                        otherEnergy.bounce();
+    
+                        continue;
+                    }
                 }
             }
 
