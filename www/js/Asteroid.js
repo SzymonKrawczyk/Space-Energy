@@ -16,7 +16,7 @@ class Asteroid extends GameObject2 {
         this.vx = 0;
         this.vy = 0;
         
-        this.bounceTime = 0.05;
+        this.bounceTime = 0.1;
         this.currentBounceTime = 0.0;
         this.bouncing = false;
 

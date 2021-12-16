@@ -449,6 +449,31 @@ class SpaceEnergyCanvasGame extends CanvasGame {
                 }
             }
 
+            // energy (bounce) & enemy (nothing)
+            for (let i = 0; i < _energyArray.arr.length; ++i) {
+
+                let currentEnergy = _energyArray.getObjectAt(i);
+
+                if(currentEnergy == null || typeof(currentEnergy) == 'undefined') {
+                    _energyArray.remove(currentEnergy);
+                    --i;
+                    continue;
+                }
+
+
+                const distanceToEnemy = _enemy.transform.distanceToTransform2(currentEnergy.transform);
+                const minimumDistanceToEnemy = Math.pow(_enemy.transform.width / 2.0 + currentEnergy.transform.width * currentEnergy.hitboxMultiplayer / 2.0, 2.0);
+
+                // hit
+                if (distanceToEnemy <= minimumDistanceToEnemy) {
+                    
+                    currentEnergy.bounce();
+                    //currentAsteroid.bounce();
+
+                    continue;
+                }
+            }
+
             // energy despawn
             for (let i = 0; i < _energyArray.arr.length; ++i) {
 

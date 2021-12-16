@@ -31,7 +31,7 @@ class Energy extends GameObject2 {
         this.vx = 0;
         this.vy = 0;      
 
-        this.bounceTime = 0.05;
+        this.bounceTime = 0.1;
         this.currentBounceTime = 0.0;
         this.bouncing = false;
 
@@ -118,7 +118,7 @@ class Energy extends GameObject2 {
         
 		this.transform.y += this.vy * this.speed * this.deltaTime;
 
-        console.log(this.alpha);
+        //console.log(this.alpha);
         if(this.transition) {
 
             this.alpha += this.deltaTime * (1 / this.imageTransitionTime) * (this.increaseAplha ? 1 : -1);

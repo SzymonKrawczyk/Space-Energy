@@ -11,8 +11,8 @@ class Enemy extends GameObject2 {
 		this.image_Ship = image_Ship;
 
 		// Position, Movement
-		this.transform.width = 64;
-		this.transform.height = 64;
+		this.transform.width = 72;
+		this.transform.height = 72;
 
 		this.transform.x = canvas.width / 2.0;
 		this.transform.y = canvas.heightStart + this.transform.height;
