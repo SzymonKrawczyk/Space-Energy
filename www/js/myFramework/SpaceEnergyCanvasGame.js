@@ -80,18 +80,22 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
         if (_GLOBAL.gameState == "GameEndWait") {
 
-            //console.log(this.highScoreObject);
-            //alert(`${_GLOBAL.score}\n\rHighScore: ${this.highScoreObject.name} ${this.highScoreObject.score}`);
+            const newLocalHighscore = _GLOBAL.highScore > (window.localStorage.getItem('highScore') ? window.localStorage.getItem('highScore') : 0);
+            if(newLocalHighscore) {
+                window.localStorage.setItem('highScore', _GLOBAL.highScore);
+            }
 
             if(this.highScoreObject.score < 0) {
 
-                alert(`Your Score: ${_GLOBAL.score}\n\nNo internet connection!`);
+                alert(`${newLocalHighscore ? "New local record!\n" : ""}Your Time: ${_GLOBAL.score}\n\nNo internet connection!`);
 
             } else {
 
+                
+
                 if(_GLOBAL.score > this.highScoreObject.score) {
 
-                    let playerName = prompt(`Your Score (new highScore!): ${_GLOBAL.score}\n\nPrevious highScore: ${this.highScoreObject.score} by ${this.highScoreObject.name}\n\nPlease enter your name:`, "Unknown");
+                    let playerName = prompt(`${newLocalHighscore ? "New local record!\n" : ""}Your Time (new global record!): ${_GLOBAL.score}\n\nPrevious global record: ${this.highScoreObject.score} by ${this.highScoreObject.name}\n\nPlease enter your name:`, "Unknown");
                     if (playerName == null || playerName == "") playerName = "Unknown";
 
                     (async () => {
@@ -100,7 +104,7 @@ class SpaceEnergyCanvasGame extends CanvasGame {
 
                 } else {
 
-                    alert(`Your Score: ${_GLOBAL.score}\n\nHighScore: ${this.highScoreObject.score} by ${this.highScoreObject.name}`);
+                    alert(`${newLocalHighscore ? "New local record!\n" : ""}Your Time: ${_GLOBAL.score}\n\nGlobal record: ${this.highScoreObject.score} by ${this.highScoreObject.name}`);
                 }
             }
 

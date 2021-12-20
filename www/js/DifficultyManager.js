@@ -19,6 +19,8 @@ class DifficultyManager extends GameObject2 {
         this.currentPhase = 0;
         console.log(`Phase: ${this.currentPhase}`);
         console.log(_GLOBAL.multiplayers);
+
+        _levelText.setText("  1");
         
         this.setDifficulty(1.0, 1.0, 1.0, 1.0);
     }
@@ -44,16 +46,20 @@ class DifficultyManager extends GameObject2 {
                     this.currentPhase = 180;
                     console.log(`Phase: ${this.currentPhase}`);
 
+                    _levelText.setText(" MAX");
+
                     this.setDifficulty(2.5, 2.0, 2.0, 0.2);
                     console.log(_GLOBAL.multiplayers);
                 }
                  
-            } else if(this.currentTime >= 120) {
+            } else if(this.currentTime >= 130) {
 
-                if(this.currentPhase < 120) {
+                if(this.currentPhase < 130) {
 
-                    this.currentPhase = 120;
+                    this.currentPhase = 130;
                     console.log(`Phase: ${this.currentPhase}`);
+
+                    _levelText.setText("  5");
 
                     this.setDifficulty(1.9, 1.75, 1.75, 0.35);
                     console.log(_GLOBAL.multiplayers);
@@ -66,6 +72,8 @@ class DifficultyManager extends GameObject2 {
                     this.currentPhase = 90;
                     console.log(`Phase: ${this.currentPhase}`);
 
+                    _levelText.setText("  4");
+
                     this.setDifficulty(1.75, 1.6, 1.6, 0.5);
                     console.log(_GLOBAL.multiplayers);
                 }
@@ -77,7 +85,9 @@ class DifficultyManager extends GameObject2 {
                     this.currentPhase = 60;
                     console.log(`Phase: ${this.currentPhase}`);
 
-                    this.setDifficulty(1.6, 1.4, 1.4, 0.65);
+                    _levelText.setText("  3");
+
+                    this.setDifficulty(1.65, 1.4, 1.4, 0.6);
                     console.log(_GLOBAL.multiplayers);
                 }
                  
@@ -88,7 +98,9 @@ class DifficultyManager extends GameObject2 {
                     this.currentPhase = 30;
                     console.log(`Phase: ${this.currentPhase}`);
 
-                    this.setDifficulty(1.5, 1.2, 1.2, 0.8);
+                    _levelText.setText("  2");
+
+                    this.setDifficulty(1.6, 1.2, 1.2, 0.8);
                     console.log(_GLOBAL.multiplayers);
                 }
             }

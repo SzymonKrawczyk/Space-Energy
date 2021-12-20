@@ -84,6 +84,7 @@ let _GLOBAL = {
 
       gameState: "Loading"
     , score: 0
+    , highScore: window.localStorage.getItem('highScore') ? window.localStorage.getItem('highScore') : 0
     , multiplayers: {
           asteroidSpawn: 1.0
         , energySpawn:   1.0
@@ -105,6 +106,7 @@ _player = null;
 _difficultyManager = null
 
 _scoreManager = null;
+_levelText = null;
 _uiArray = null;
 _playButton = null;
 
@@ -114,7 +116,7 @@ _soundManager = null
 
 function playGame() {
 
-    canvas.heightStart = 100;
+    canvas.heightStart = 125;
 
     // moving background
     // gameObjects - objects that never reset (background)
@@ -137,31 +139,42 @@ function playGame() {
 
     _enemy = new Enemy(image_spaceShipEnemy,/* image_shield_Enemy,*/ _player);
 
-    _difficultyManager = new DifficultyManager();
-
     _soundManager = new SoundManager(sound_background, sound_gameEnd);
 
     _uiArray = new GameObjectArray();
+    const UI_PADDING = 15;
 
     let statsBackground = new MovingStatsBackground(image_stats_bg, -15, -5, 32);
     _uiArray.add(statsBackground);
-    const STATS_PADDING = 15;
 
-	let scoreText = new InteractableText("SCORE", false, true, STATS_PADDING, STATS_PADDING, "monospace, sans-serif, serif", 30, "white");
-    _uiArray.add(scoreText);
-	let scoreVisualizer = new InteractableText(_GLOBAL.score, true, true, canvas.width - STATS_PADDING, STATS_PADDING, "monospace, sans-serif, serif", 30, "white");
+    let levelLabel = new InteractableText("LEVEL", false, true, UI_PADDING, UI_PADDING, "monospace, sans-serif, serif", 30, "white");
+    _uiArray.add(levelLabel);
+    _levelText = new InteractableText("  1", false, false, UI_PADDING, canvas.heightStart - (UI_PADDING * 2 + UI_PADDING * 2), "monospace, sans-serif, serif", 30, "white");
+    _uiArray.add(_levelText);
+
+    let highScoreLabel = new InteractableText("RECORD", false, true, (canvas.width + UI_PADDING) / 3, UI_PADDING, "monospace, sans-serif, serif", 30, "white");
+    _uiArray.add(highScoreLabel);
+    let highScoreText = new InteractableText(_GLOBAL.highScore, true, true, canvas.width - UI_PADDING, UI_PADDING, "monospace, sans-serif, serif", 30, "white");
+    _uiArray.add(highScoreText);
+
+	let scoreLabel = new InteractableText("TIME", false, false, (canvas.width + UI_PADDING) / 3, canvas.heightStart - (UI_PADDING * 2 + UI_PADDING * 2), "monospace, sans-serif, serif", 30, "white");
+    _uiArray.add(scoreLabel);
+	let scoreVisualizer = new InteractableText(_GLOBAL.score, true, false, canvas.width - UI_PADDING, canvas.heightStart - (UI_PADDING * 2 + UI_PADDING * 2), "monospace, sans-serif, serif", 30, "white");
 	_uiArray.add(scoreVisualizer);
-    _scoreManager = new ScoreManager(scoreVisualizer, 6);
+    _scoreManager = new ScoreManager(scoreVisualizer, highScoreText);
 
     let energyVisualizer = new EnergyVisualizer(
         _player
         , image_energy_visual_bg, image_energy_visual_fg
-        , canvas.heightStart - (STATS_PADDING + 30 / 2), STATS_PADDING, 30
+        , canvas.heightStart - (UI_PADDING + 30 / 2), UI_PADDING, UI_PADDING * 2
         , 32);
 	_uiArray.add(energyVisualizer);
 
     _playButton = new StaticImage(image_playButton, canvas.width / 2, ((canvas.height - canvas.heightStart) / 2.0) + canvas.heightStart, canvas.width - 150, canvas.width - 150);
 	_uiArray.add(_playButton);
+
+    
+    _difficultyManager = new DifficultyManager();
 
     /* Always create a game that uses the gameObject array */
     let game = new SpaceEnergyCanvasGame();
@@ -185,7 +198,7 @@ function playGame() {
         }
     });
 
-    // Debug keys movement
+    // Debug
     document.addEventListener("keydown", function (e)
     {
         if (e.keyCode === 37)  // left
@@ -204,5 +217,11 @@ function playGame() {
         {
             _player.setOrientation(-0.00001, 45);
         } 
+        else if (e.keyCode === 82) // r
+        {
+            _GLOBAL.highScore = 0;
+            window.localStorage.setItem('highScore', _GLOBAL.highScore);
+            highScoreText.setText(_GLOBAL.highScore);
+        }
     });
 }

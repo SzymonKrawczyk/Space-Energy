@@ -2,7 +2,7 @@
 
 class ScoreManager extends GameObject2 {
 
-    constructor(scoreObject, len) {
+    constructor(scoreObject, highScoreObject) {
 
         super(8); 
 
@@ -10,8 +10,9 @@ class ScoreManager extends GameObject2 {
         this.currentTime = 0.0;
 
         this.scoreObject = scoreObject;
+        this.highScoreObject = highScoreObject;
 
-        this.len = len;
+        this.len = 1;
 
         this.reset();
     }
@@ -26,6 +27,7 @@ class ScoreManager extends GameObject2 {
         }
         
         this.scoreObject.setText(temp);
+        this.highScoreObject.setText(_GLOBAL.highScore);
     }
 
     updateState() {
@@ -39,6 +41,12 @@ class ScoreManager extends GameObject2 {
                 this.currentTime = 0.0;
 
                 ++_GLOBAL.score;
+
+                if(_GLOBAL.score > _GLOBAL.highScore) {
+
+                    _GLOBAL.highScore = _GLOBAL.score;
+                    this.highScoreObject.setText(_GLOBAL.highScore);
+                }
 
                 let temp = "" + _GLOBAL.score;
                 let missing = this.len - temp.length;
